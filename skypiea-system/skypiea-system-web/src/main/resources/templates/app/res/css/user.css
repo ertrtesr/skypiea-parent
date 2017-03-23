@@ -1,0 +1,12 @@
+.panel-top {
+    margin-top: 20px;
+}
+
+.panel-heading a {
+    text-decoration: none;
+    color: lightgray;
+}
+
+.panel-heading a:hover {
+    color: white;
+}

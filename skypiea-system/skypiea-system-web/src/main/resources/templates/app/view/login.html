@@ -1,0 +1,121 @@
+<style>
+    .center-vertical {
+        margin-top: 15%;
+    }
+
+    .has-error {
+        color: #a94442;;
+    }
+
+    .bg-color {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-image: url("app/res/images/login_background.png");
+        background-size: cover;
+    }
+
+    .text-color {
+        color: white;
+    }
+</style>
+
+<div class="bg-color">
+    <div class="container" ng-controller="loginController">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 center-vertical">
+                <h2 class="text-color" style="margin-bottom: 20px">SKyPiea后台管理登录</h2>
+                <form name="loginForm" ng-submit="loginForm.$valid&&userExist?submitForm(userData):showAlert()">
+                    <div class="form-group has-feedback"
+                         ng-class="{
+                        'has-success':loginForm.username.$valid&&loginForm.username.$touched,
+                        'has-error':loginForm.username.$invalid&&loginForm.username.$touched
+                        }">
+                        <input type="text"
+                               id="username"
+                               name="username"
+                               class="form-control"
+                               placeholder="请输入用户名"
+                               ng-model="userData.username"
+                               ng-minlength="4"
+                               ng-maxlength="10"
+                               required/>
+                        <span ng-show="loginForm.username.$valid&&loginForm.username.$touched"
+                              class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        <span ng-show="loginForm.username.$invalid&&loginForm.username.$touched"
+                              class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <p class="has-error" ng-show="loginForm.username.$error.minlength&&loginForm.username.$touched">
+                            用户名不能小于4位
+                        </p>
+                        <p class="has-error" ng-show="loginForm.username.$error.maxlength&&loginForm.username.$touched">
+                            用户名不能大于10位
+                        </p>
+                        <p class="has-error" ng-show="loginForm.username.$error.required&&loginForm.username.$touched">
+                            用户名不能为空
+                        </p>
+                        <!--这段提示只有在用户不存在,同时input中字段填写满足条件时才出现-->
+                        <p class="has-error" ng-show="!userExist&&loginForm.username.$valid">
+                            用户不存在
+                        </p>
+                    </div>
+                    <div class="form-group has-feedback"
+                         ng-class="{
+                            'has-success':loginForm.password.$valid&&loginForm.password.$touched,
+                            'has-error':loginForm.password.$invalid&&loginForm.password.$touched
+                        }">
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               class="form-control"
+                               placeholder="请输入密码"
+                               ng-model="userData.password"
+                               ng-minlength="4"
+                               ng-maxlength="10"
+                               required/>
+                        <span ng-show="loginForm.password.$valid&&loginForm.password.$touched"
+                              class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        <span ng-show="loginForm.password.$invalid&&loginForm.password.$touched"
+                              class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <p class="has-error" ng-show="loginForm.password.$error.minlength&&loginForm.password.$touched">
+                            密码长度不能小于4位
+                        </p>
+                        <p class="has-error" ng-show="loginForm.password.$error.maxlength&&loginForm.password.$touched">
+                            密码长度不能大于10位
+                        </p>
+                        <p class="has-error" ng-show="loginForm.password.$error.required&&loginForm.password.$touched">
+                            密码不能为空
+                        </p>
+                    </div>
+                    <div class="form-group has-feedback"
+                         ng-class="{
+                            'has-success':loginForm.confirmPassword.$valid&&userData.password===userData.confirmPassword&&loginForm.confirmPassword.$touched,
+                            'has-error':userData.password!=userData.confirmPassword&&loginForm.confirmPassword.$touched
+                        }">
+                        <input type="password"
+                               id="confirmPassword"
+                               name="confirmPassword"
+                               class="form-control"
+                               placeholder="请再输入一次密码"
+                               ng-model="userData.confirmPassword"
+                               ng-minlength="4"
+                               ng-maxlength="10"
+                               required/>
+                        <span ng-show="loginForm.confirmPassword.$valid&&userData.password===userData.confirmPassword&&loginForm.confirmPassword.$touched"
+                              class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        <span ng-show="loginForm.confirmPassword.$invalid&&userData.password!=userData.confirmPassword&&loginForm.confirmPassword.$touched"
+                              class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <p class="has-error"
+                           ng-show="!(loginForm.confirmPassword.$error.required)&&userData.password!=userData.confirmPassword&&loginForm.confirmPassword.$touched">
+                            两次密码输入不一致
+                        </p>
+                    </div>
+                    <!--表单填写有误时触发disabled-->
+                    <button type="submit" class="btn btn-primary btn-default form-control">
+                        立即登录
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+skypiea-system-model/target
+skypiea-system-dao/target
+skypiea-system-service/target
+skypiea-system-web/target
+

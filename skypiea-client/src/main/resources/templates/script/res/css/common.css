@@ -1,0 +1,8 @@
+.has-error {
+    color: #a94442;;
+}
+
+/*针对input-lg输入框反馈的对号和错号居中*/
+.rc-lg {
+    padding-top: 5px;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页</title>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <title>SkyPiea后台管理</title>
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/bower_components/sweetalert/dist/sweetalert.css" rel="stylesheet">
+
+
+    <!--样式引入-->
+    <link href="app/res/css/index.css" rel="stylesheet">
+    <link href="app/res/css/loading.css" rel="stylesheet">
+    <link href="app/res/css/user.css" rel="stylesheet">
+</head>
+<div ui-view></div>
+<body>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+<!--引入初始化的js-->
+<script src="app/app.js"></script>
+<!--引入路由-->
+<script src="app/config/router.js"></script>
+
+<!--引入自定义指令-->
+<script src="app/directive/app-head.js"></script>
+<script src="app/directive/app-menu.js"></script>
+<script src="app/directive/app-main.js"></script>
+
+<!--引入controller-->
+<script src="app/controller/homeController.js"></script>
+<script src="app/controller/loginController.js"></script>
+<script src="app/controller/menuController.js"></script>
+<script src="app/controller/userManagerController.js"></script>
+
+<!--引入service-->
+<script src="app/service/loginService.js"></script>
+<script src="app/service/menuService.js"></script>
+<script src="app/service/userManagerService.js"></script>
+</body>
+</html>

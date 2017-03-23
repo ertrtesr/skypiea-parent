@@ -1,0 +1,120 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 0px;
+}
+
+a {
+    cursor: pointer;
+}
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #333333;
+        border-right: 1px solid #333;
+    }
+}
+
+/* 菜单区域样式 */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+.nav-sidebar-sub {
+}
+
+.nav-sidebar li a {
+    padding-right: 20px;
+    padding-left: 10px;
+    color: #9d9d9d;
+}
+
+.nav-sidebar .active a {
+    color: #ffffff;
+    background-color: #222222;
+}
+
+.nav-sidebar li a:hover {
+    color: #ffffff;
+    background-color: #222222;
+}
+
+/*nav-sidebar类下面被激活的li标签下的被选中的a标签的颜色*/
+.nav-sidebar .active a:focus {
+    color: #ffffff;
+    background-color: #222222;
+}
+
+/*菜单一级标题样式*/
+.menu-title {
+    margin-left: 20px;
+}
+
+.menu-title-sub {
+    margin-left: 40px;
+}
+
+.icon-primary-dashbord {
+    color: #7266ba;
+}
+
+.icon-primary-file {
+    color: lightyellow;
+}
+
+.icon-primary-photo {
+    color: #7fffd4;
+}
+
+.icon-primary-music {
+    color: #19a9d5;
+}
+
+.icon-primary-mail {
+    color: #d9534f;
+}
+
+/*主内容区域样式*/
+.main {
+    margin-top: 50px;
+}

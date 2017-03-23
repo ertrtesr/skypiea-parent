@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skypiea.system.mapper.UserMapper">
+
+    <!--通过ID查找用户-->
+    <select id="findUserById" parameterType="int" resultType="UserInfo">
+        SELECT * FROM t_user WHERE id=#{id};
+    </select>
+
+    <!--通过用户名查找用户-->
+    <select id="findUserByName" parameterType="String" resultType="UserInfo">
+        SELECT * FROM t_user WHERE  username=#{username};
+    </select>
+
+    <!--查找所有的用户-->
+    <select id="findAllUsers" resultType="UserInfo">
+        SELECT * FROM t_user;
+    </select>
+
+    <!--通过用户名查找密码-->
+    <select id="findPasswordByUsername" parameterType="String" resultType="String">
+        SELECT password FROM t_user WHERE username=#{username};
+    </select>
+
+    <!--添加用户-->
+    <insert id="addUser" parameterType="UserInfo">
+        <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+        INSERT INTO t_user(username,password,authorization) VALUES(#{username},#{password},#{authorization});
+    </insert>
+
+    <!--更新用户-->
+    <update id="updateUser" parameterType="UserInfo">
+        UPDATE t_user SET password=#{password},authorization=#{authorization} WHERE username=#{username};
+    </update>
+
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM t_user WHERE username=#{username};
+    </delete>
+
+</mapper>
+

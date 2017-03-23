@@ -1,0 +1,155 @@
+<div class="rl-background">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="rl-container ">
+                    <h3>CREATE ACCOUNT</h3><br>
+                    <form name="registerForm">
+                        <div class="form-group has-feedback"
+                             ng-class="{
+                                'has-success':registerForm.username.$valid&&registerForm.username.$touched,
+                                'has-error':registerForm.username.$invalid&&registerForm.username.$touched
+                             }">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                                <input type="text"
+                                       id="username"
+                                       name="username"
+                                       class="form-control input-lg font-sm"
+                                       placeholder="请输入用户名"
+                                       ng-model="userData.username"
+                                       ng-minlength="4"
+                                       ng-maxlength="10"
+                                       required/>
+                            </div>
+                            <span ng-show="registerForm.username.$valid&&registerForm.username.$touched"
+                                  class="glyphicon glyphicon-ok form-control-feedback rc-lg"></span>
+                            <span ng-show="registerForm.username.$invalid&&registerForm.username.$touched"
+                                  class="glyphicon glyphicon-remove form-control-feedback rc-lg"></span>
+                            <p class="has-error"
+                               ng-show="registerForm.username.$error.minlength&&registerForm.username.$touched">
+                                用户名不能小于4位
+                            </p>
+                            <p class="has-error"
+                               ng-show="registerForm.username.$error.maxlength&&registerForm.username.$touched">
+                                用户名不能大于10位
+                            </p>
+                            <p class="has-error"
+                               ng-show="registerForm.username.$error.required&&registerForm.username.$touched">
+                                用户名不能为空
+                            </p>
+                            <!--这段提示只有在用户不存在,同时input中字段填写满足条件时才出现-->
+                            <p class="has-error" ng-show="userExist&&registerForm.username.$valid">
+                                用户已存在
+                            </p>
+                        </div>
+
+                        <div class="form-group has-feedback"
+                             ng-class="{
+                                    'has-success':registerForm.password.$valid&&registerForm.password.$touched,
+                                    'has-error':registerForm.password.$invalid&&registerForm.password.$touched
+                                }">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-eye-close"></i>
+                                </div>
+                                <input id="password"
+                                       name="password"
+                                       type="password"
+                                       class="form-control input-lg font-sm"
+                                       placeholder="请输入密码"
+                                       ng-model="userData.password"
+                                       ng-minlength="4"
+                                       ng-maxlength="10"
+                                       required>
+                            </div>
+                            <span ng-show="registerForm.password.$valid&&registerForm.password.$touched"
+                                  class="glyphicon glyphicon-ok form-control-feedback rc-lg"></span>
+                            <span ng-show="registerForm.password.$invalid&&registerForm.password.$touched"
+                                  class="glyphicon glyphicon-remove form-control-feedback rc-lg"></span>
+                            <p class="has-error"
+                               ng-show="registerForm.password.$error.minlength&&registerForm.password.$touched">
+                                密码不能小于4位
+                            </p>
+                            <p class="has-error"
+                               ng-show="registerForm.password.$error.maxlength&&registerForm.password.$touched">
+                                密码不能大于10位
+                            </p>
+                            <p class="has-error"
+                               ng-show="registerForm.password.$error.required&&registerForm.password.$touched">
+                                密码不能为空
+                            </p>
+                        </div>
+                        <div class="form-group has-feedback"
+                             ng-class="{
+                                'has-success':registerForm.confirmPassword.$valid&&userData.password===userData.confirmPassword&&registerForm.confirmPassword.$touched,
+                                'has-error':userData.password!=userData.confirmPassword&&registerForm.confirmPassword.$touched
+                             }">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-check"></i>
+                                </div>
+                                <input type="password"
+                                       id="confirmPassword"
+                                       name="confirmPassword"
+                                       class="form-control input-lg font-sm"
+                                       placeholder="请确认密码"
+                                       ng-model="userData.confirmPassword"
+                                       ng-minlength="4"
+                                       ng-maxlength="10"
+                                       required>
+                            </div>
+                            <span ng-show="registerForm.confirmPassword.$valid&&userData.password===userData.confirmPassword&&registerForm.confirmPassword.$touched"
+                                  class="glyphicon glyphicon-ok form-control-feedback rc-lg"></span>
+                            <span ng-show="(registerForm.confirmPassword.$invalid||userData.password!=userData.confirmPassword)&&registerForm.confirmPassword.$touched"
+                                  class="glyphicon glyphicon-remove form-control-feedback rc-lg"></span>
+                            <p class="has-error"
+                               ng-show="userData.password!=userData.confirmPassword&&registerForm.confirmPassword.$touched">
+                                两次密码输入不一致
+                            </p>
+                        </div>
+
+                        <div class="form-group has-feedback"
+                             ng-class="{
+                                'has-success':registerForm.email.$valid&&registerForm.email.$touched,
+                                'has-error':registerForm.email.$invalid&&registerForm.email.$touched
+                             }">
+                            <div class="input-group">
+                                <span class="input-group-addon">@</span>
+                                <input id="email"
+                                       name="email"
+                                       type="email"
+                                       ng-model="userData.email"
+                                       class="form-control input-lg font-sm"
+                                       placeholder="请输入邮箱"
+                                       ng-minlength="6"
+                                       ng-maxlength="20"
+                                       required>
+                            </div>
+                            <span ng-show="registerForm.email.$valid&&registerForm.email.$touched"
+                                  class="glyphicon glyphicon-ok form-control-feedback rc-lg"></span>
+                            <span ng-show="registerForm.email.$invalid&&registerForm.email.$touched"
+                                  class="glyphicon glyphicon-remove form-control-feedback rc-lg"></span>
+                            <p class="has-error" ng-show="registerForm.email.$invalid&&registerForm.email.$touched">
+                                邮箱格式不正确
+                            </p>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="isAgree">已阅读并同意协议
+                            </label>
+                            <div class="pull-right">
+                                <a ui-sref="login" style="color: #46252c; cursor: pointer;">已有账号,马上登录</a>&nbsp;&nbsp;
+                                <button class="btn btn-primary "
+                                        ng-click="submitRegisterForm(userData)">&nbsp;&nbsp;注册 &nbsp;&nbsp;</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
