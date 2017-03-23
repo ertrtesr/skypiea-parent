@@ -1,26 +1,23 @@
-package com.skypiea.system.mapper;
+package com.skypiea.client.cache;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 作者: huangwenjian
  * 描述:
  * 创建时间: 2017-03-23 17:54
  */
-@Mapper
-public class StringRedisMapper {
+@Component
+public class StringRedisCache {
 
     @Autowired
     private StringRedisTemplate template;
-
-    @Autowired
-    RedisTemplate r;
 
     public void add(String key, String value) {
         template.opsForValue().set(key, value);
@@ -51,5 +48,15 @@ public class StringRedisMapper {
 
     public void delete(String key) {
         template.opsForValue().getOperations().delete(key);
+    }
+
+    /**
+     * 设置key的过期时间,以秒为单位
+     *
+     * @param key
+     * @param timeout
+     */
+    public void expire(String key, long timeout) {
+        template.expire(key, timeout, TimeUnit.SECONDS);
     }
 }

@@ -6,7 +6,7 @@ import com.skypiea.client.pojo.GridFSFileInfo;
 import com.skypiea.client.service.MongoFileService;
 import com.skypiea.common.http.HttpStatus;
 import com.skypiea.common.result.SPResult;
-import com.skypiea.common.utils.ExceptionUtil;
+import com.skypiea.common.utils.ExceptionUtils;
 import com.skypiea.common.utils.TimeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class MongoFileServiceImpl implements MongoFileService {
             GridFSFileInfo fileInfo = setFileInfo(gridFSFile);
             return SPResult.ok(fileInfo);
         } catch (IOException e) {
-            ExceptionUtil.getStackTrace(e);
+            ExceptionUtils.getStackTrace(e);
             return SPResult.build(HttpStatus.OK, "文件上传失败");
         }
     }
@@ -61,7 +61,7 @@ public class MongoFileServiceImpl implements MongoFileService {
             }
             return SPResult.ok(fileList);
         } catch (IOException e) {
-            ExceptionUtil.getStackTrace(e);
+            ExceptionUtils.getStackTrace(e);
             return SPResult.build(HttpStatus.OK, "部分文件上传失败", fileList);
         }
     }
@@ -89,7 +89,7 @@ public class MongoFileServiceImpl implements MongoFileService {
         try {
             gridFsTemplate.delete(Query.query(Criteria.where("_id").is(_id)));
         } catch (Exception e) {
-            ExceptionUtil.getStackTrace(e);
+            ExceptionUtils.getStackTrace(e);
             return SPResult.ok("删除失败");
         }
         return SPResult.ok("删除成功");
@@ -100,7 +100,7 @@ public class MongoFileServiceImpl implements MongoFileService {
         try {
             gridFsTemplate.delete(Query.query(Criteria.where("filename").is(fileName)));
         } catch (Exception e) {
-            ExceptionUtil.getStackTrace(e);
+            ExceptionUtils.getStackTrace(e);
             return SPResult.ok("删除失败");
         }
         return SPResult.ok("删除成功");

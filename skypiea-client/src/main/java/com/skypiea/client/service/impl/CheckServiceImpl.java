@@ -3,7 +3,6 @@ package com.skypiea.client.service.impl;
 import com.skypiea.client.service.CheckService;
 import com.skypiea.common.cons.UserConstants;
 import com.skypiea.common.result.SPResult;
-import com.skypiea.common.utils.TokenUtils;
 import com.skypiea.system.mapper.UserMapper;
 import com.skypiea.system.model.UserInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -57,8 +56,7 @@ public class CheckServiceImpl implements CheckService {
             //密码错误,登录失败
             return SPResult.fail(UserConstants.PASSWORD_ERROR);
         }
-        //登陆成功,生成token
-        String token = TokenUtils.createToken();
-        return null;
+        //用户名密码校验通过,将user包装后返回SPResult
+        return SPResult.ok(user);
     }
 }

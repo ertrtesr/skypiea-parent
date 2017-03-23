@@ -3,7 +3,7 @@ package com.skypiea.common.utils;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class ExceptionUtil {
+public class ExceptionUtils {
 
 	/**
 	 * 获取异常的堆栈信息

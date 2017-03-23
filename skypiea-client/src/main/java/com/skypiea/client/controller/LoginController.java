@@ -1,13 +1,13 @@
 package com.skypiea.client.controller;
 
+import com.skypiea.client.service.LoginService;
 import com.skypiea.common.result.SPResult;
+import com.skypiea.common.utils.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 作者: huangwenjian
@@ -19,13 +19,17 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/client/user/login")
 public class LoginController {
 
+    @Autowired
+    private LoginService loginService;
+
     @PostMapping
-    public SPResult login(@RequestParam("username") String username,
-                          @RequestParam("password") String password,
-                          HttpServletRequest request, HttpServletResponse response) {
-
-
-
-        return null;
+    public SPResult login(@RequestParam("username") String username, @RequestParam("password") String password) {
+        try {
+            SPResult result = loginService.login(username, password);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return SPResult.fail(ExceptionUtils.getStackTrace(e));
+        }
     }
 }

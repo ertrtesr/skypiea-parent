@@ -11,6 +11,7 @@ public class TokenUtils {
 
     public static String createToken() {
         UUID uuid = UUID.randomUUID();
-        return uuid.toString().trim();
+        String token = uuid.toString().replace("-", "");
+        return token;
     }
 }

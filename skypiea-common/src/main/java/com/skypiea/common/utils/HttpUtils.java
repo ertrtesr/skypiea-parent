@@ -47,7 +47,7 @@ public class HttpUtils {
                 result = EntityUtils.toString(response.getEntity(), "UTF-8");
             }
         } catch (Exception e) {
-            ExceptionUtil.getStackTrace(e);
+            ExceptionUtils.getStackTrace(e);
         } finally {
             close(httpClient, response);
         }
@@ -118,7 +118,7 @@ public class HttpUtils {
             }
             httpClient.close();
         } catch (IOException e) {
-            ExceptionUtil.getStackTrace(e);
+            ExceptionUtils.getStackTrace(e);
         }
     }
 }
