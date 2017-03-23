@@ -23,7 +23,7 @@ public class CheckController {
 
     @GetMapping("/{param}/{type}")
     public SPResult checkData(@PathVariable String param, @PathVariable int type) {
-        SPResult result = checkService.checkData(param, type);
+        SPResult result = checkService.checkRegisterData(param, type);
         return result;
     }
 }
