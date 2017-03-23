@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * 作者: huangwenjian
- * 描述:
+ * 描述: Redis配置类
  * 创建时间: 2017-03-23 20:36
  */
 
@@ -19,6 +19,11 @@ public class RedisConfiguration {
         return new JedisConnectionFactory();
     }
 
+    /**
+     * 对string类型缓存的支持
+     *
+     * @return
+     */
     @Bean
     public StringRedisTemplate stringRedisTemplate() {
         StringRedisTemplate template = new StringRedisTemplate();
