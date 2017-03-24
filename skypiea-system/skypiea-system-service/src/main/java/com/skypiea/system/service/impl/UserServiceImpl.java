@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         String username = newUser.getUsername();
         UserInfo user = userMapper.findUserByName(username);
         if (user != null) {       //如果用户已存在,则返回已存在的json
-            return SPResult.build(HttpStatus.OK, UserConstants.USER_ALREADY_EXISTED);
+            return SPResult.build(HttpStatus.OK, UserConstants.USER_ALREADY_EXIST);
         } else {
             //如果数据库中不存在该用户,则存入数据库
             userMapper.addUser(newUser);

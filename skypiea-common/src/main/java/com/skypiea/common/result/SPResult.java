@@ -75,12 +75,23 @@ public class SPResult {
         return ok(null);
     }
 
+    //用于客户端请求错误返回
     public static SPResult fail(Object data) {
         return new SPResult(HttpStatus.BadRequest, HttpMsg.FAIL, data);
     }
 
+    //用户客户端错误
     public static SPResult fail() {
         return fail(null);
+    }
+
+    //用于服务端错误
+    public static SPResult error(Object data) {
+        return new SPResult(HttpStatus.InternalServerError, HttpMsg.ERROR, data);
+    }
+
+    public static SPResult error() {
+        return error(null);
     }
 
     public static SPResult formatToObject(String json, Class<?> clazz) {

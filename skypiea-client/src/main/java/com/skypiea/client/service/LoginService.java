@@ -10,4 +10,6 @@ import com.skypiea.common.result.SPResult;
 public interface LoginService {
 
     SPResult login(String username, String password);
+
+    SPResult getUserByToken(String token);
 }

@@ -33,7 +33,7 @@ public class RegisterServiceImpl implements RegisterService {
         if (StringUtils.isNotEmpty(username)) {
             SPResult result = checkService.checkRegisterData(username, 1);
             if (!(boolean) result.getData()) {      //如果为false,代表用户已存在
-                return SPResult.build(HttpStatus.BadRequest, UserConstants.USER_ALREADY_EXISTED, "注册失败");
+                return SPResult.build(HttpStatus.BadRequest, UserConstants.USER_ALREADY_EXIST, "注册失败");
             }
         } else {
             return SPResult.build(HttpStatus.BadRequest, "用户名不能为空");

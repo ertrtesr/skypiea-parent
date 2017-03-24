@@ -3,11 +3,10 @@ package com.skypiea.client.controller;
 import com.skypiea.client.service.LoginService;
 import com.skypiea.common.result.SPResult;
 import com.skypiea.common.utils.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 作者: huangwenjian
@@ -16,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/client/user/login")
+@RequestMapping("/client/user")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
-    @PostMapping
+    @PostMapping("/login")
     public SPResult login(@RequestParam("username") String username, @RequestParam("password") String password) {
         try {
             SPResult result = loginService.login(username, password);
@@ -30,6 +29,24 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
             return SPResult.fail(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+    @GetMapping("/token/{token}")
+    public Object getUserByToken(@PathVariable String token, String callback) {
+        try {
+            SPResult result = loginService.getUserByToken(token);
+            //支持jsonp调用
+            if (StringUtils.isNotEmpty(callback)) {
+                MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
+                mappingJacksonValue.setJsonpFunction(callback);
+                return mappingJacksonValue;
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            //将错误消息返回给客户端
+            return SPResult.error(ExceptionUtils.getStackTrace(e));
         }
     }
 }
