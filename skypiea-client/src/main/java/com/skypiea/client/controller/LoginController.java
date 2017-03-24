@@ -49,4 +49,10 @@ public class LoginController {
             return SPResult.error(ExceptionUtils.getStackTrace(e));
         }
     }
+
+    @GetMapping("/logout/{token}")
+    public SPResult logout(@PathVariable String token) {
+        SPResult result = loginService.logout(token);
+        return result;
+    }
 }

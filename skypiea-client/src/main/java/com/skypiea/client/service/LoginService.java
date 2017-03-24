@@ -11,5 +11,9 @@ public interface LoginService {
 
     SPResult login(String username, String password);
 
+    //根据token取用户信息
     SPResult getUserByToken(String token);
+
+    //安全退出
+    SPResult logout(String token);
 }

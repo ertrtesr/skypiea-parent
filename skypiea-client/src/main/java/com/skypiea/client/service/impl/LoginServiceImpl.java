@@ -70,4 +70,11 @@ public class LoginServiceImpl implements LoginService {
         redisCache.expire(REDIS_TOKEN_KEY + ":" + token, TOKEN_EXPIRE_TIME);
         return SPResult.ok(user);
     }
+
+    @Override
+    public SPResult logout(String token) {
+        //删除redis中的token
+        redisCache.delete(token);
+        return SPResult.ok();
+    }
 }
