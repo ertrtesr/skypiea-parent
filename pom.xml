@@ -12,6 +12,7 @@
         <module>skypiea-common</module>
         <module>skypiea-client</module>
         <module>skypiea-system</module>
+        <module>skypiea-openApi</module>
     </modules>
 
 

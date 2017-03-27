@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckServiceImpl implements CheckService {
 
-    @Autowired
-    public UserMapper userMapper;
-
     private static final int USERNAME_TYPE = 1;
     private static final int PHONE_TYPE = 2;
     private static final int EMAIL_TYPE = 3;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public SPResult checkRegisterData(String param, int type) {

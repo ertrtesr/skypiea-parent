@@ -28,7 +28,18 @@ public class LoginController {
             return result;
         } catch (Exception e) {
             e.printStackTrace();
-            return SPResult.fail(ExceptionUtils.getStackTrace(e));
+            return SPResult.error(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+    @PostMapping("/loginByShiro")
+    public SPResult loginByShiro(@RequestParam("username") String username, @RequestParam("password") String password) {
+        try {
+            SPResult result = loginService.loginByShiro(username, password);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return SPResult.error(ExceptionUtils.getStackTrace(e));
         }
     }
 

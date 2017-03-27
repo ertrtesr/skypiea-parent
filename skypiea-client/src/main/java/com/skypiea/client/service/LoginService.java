@@ -11,6 +11,8 @@ public interface LoginService {
 
     SPResult login(String username, String password);
 
+    SPResult loginByShiro(String username, String password);
+
     //根据token取用户信息
     SPResult getUserByToken(String token);
 
