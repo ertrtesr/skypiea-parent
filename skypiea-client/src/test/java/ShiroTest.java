@@ -1,5 +1,7 @@
 import com.skypiea.client.AppClient;
 import com.skypiea.client.realm.UserRealm;
+import com.skypiea.system.mapper.UserMapper;
+import com.skypiea.system.model.RoleInfo;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -10,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 /**
  * 作者: huangwenjian
@@ -30,6 +34,9 @@ public class ShiroTest {
     @Autowired
     Subject subject;
 
+    @Autowired
+    UserMapper userMapper;
+
     @Test
     public void testShiroLogin() {
         UsernamePasswordToken token = new UsernamePasswordToken("song17", "1234");
@@ -47,10 +54,13 @@ public class ShiroTest {
 
     @Test
     public void testShiroPermission() {
-        UsernamePasswordToken token = new UsernamePasswordToken("song17", "1234");
+        UsernamePasswordToken token = new UsernamePasswordToken("zhangsan1", "1234");
         subject.login(token);
         System.out.println("认证通过:" + subject.isAuthenticated());
-        boolean role2 = subject.hasRole("role3");
+        boolean role2 = subject.hasRole("role2");
         System.out.println("role2:" + role2);
+
+        List<RoleInfo> roles = userMapper.findRolesByUsername("zhangsan3");
+        System.out.println(roles.get(0).getName());
     }
 }

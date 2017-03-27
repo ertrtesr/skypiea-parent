@@ -4,6 +4,7 @@ import com.skypiea.client.cache.StringRedisCache;
 import com.skypiea.client.realm.UserRealm;
 import com.skypiea.client.service.CheckService;
 import com.skypiea.client.service.LoginService;
+import com.skypiea.client.service.PermissionService;
 import com.skypiea.common.cons.UserConstants;
 import com.skypiea.common.http.HttpMsg;
 import com.skypiea.common.result.SPResult;
@@ -40,6 +41,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private CheckService checkService;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @Autowired
     private StringRedisCache redisCache;
@@ -86,7 +90,8 @@ public class LoginServiceImpl implements LoginService {
     public SPResult loginByShiro(String username, String password) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
-            subject.login(token);
+            if (subject != null)
+                subject.login(token);
         } catch (UnknownAccountException e) {
             e.printStackTrace();
             return SPResult.fail(UserConstants.NO_SUCH_USER);
@@ -94,7 +99,9 @@ public class LoginServiceImpl implements LoginService {
             e.printStackTrace();
             return SPResult.fail(UserConstants.PASSWORD_ERROR);
         }
-        //登录成功,生成accessToken
+        //登录成功
+
+        //生成accessToken
         String accessToken = TokenUtils.createToken();
         //将user对象序列化成json写入redis
         String redisKey = REDIS_TOKEN_KEY + ":" + accessToken;
@@ -127,7 +134,15 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public SPResult logout(String token) {
         //删除redis中的token
-        redisCache.delete(token);
+        redisCache.delete(REDIS_TOKEN_KEY + ":" + token);
+        return SPResult.ok();
+    }
+
+    @Override
+    public SPResult logoutByShiro(String token) {
+        if (subject != null)
+            subject.logout();
+        redisCache.delete(REDIS_TOKEN_KEY + ":" + token);
         return SPResult.ok();
     }
 }

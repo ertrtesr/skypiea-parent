@@ -1,6 +1,7 @@
 package com.skypiea.client.realm;
 
 import com.skypiea.system.mapper.UserMapper;
+import com.skypiea.system.model.RoleInfo;
 import com.skypiea.system.model.UserInfo;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * 作者: huangwenjian
@@ -28,7 +30,6 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserMapper userMapper;
 
-    private UserInfo userInfo;
     private IUserCallback callback;
 
     /**
@@ -40,13 +41,14 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username = (String) principalCollection.getPrimaryPrincipal();
-        System.out.println("username:" + username);
+        System.out.println("doGetAuthenticationInfo:当前用户登录时输入的username<==" + username);
 
         //通过username去数据库查询用户角色和角色所对应的权限
-
         HashSet<String> roleSet = new HashSet<>();
-        roleSet.add("role1");
-        roleSet.add("role2");
+        List<RoleInfo> roles = userMapper.findRolesByUsername(username);
+        for (RoleInfo role : roles) {
+            roleSet.add(role.getName());
+        }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleSet);
         return info;
     }

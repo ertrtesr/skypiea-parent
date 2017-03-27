@@ -1,5 +1,7 @@
 package com.skypiea.client.service;
 
+import com.skypiea.common.result.SPResult;
+
 /**
  * 作者: huangwenjian
  * 描述:
@@ -7,7 +9,7 @@ package com.skypiea.client.service;
  */
 public interface PermissionService {
 
+    SPResult queryRoles(String username);
 
-
-
+    SPResult queryPermissions(String username);
 }

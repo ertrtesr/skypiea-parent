@@ -27,7 +27,7 @@
     <!--通过用户id查询用户角色-->
     <select id="findRolesByUserId" parameterType="int" resultType="RoleInfo">
         SELECT
-	        t_role.name
+	        t_role.id, t_role.name
         FROM
 	        t_role
         WHERE
@@ -45,7 +45,7 @@
     <!--通过用户名查询用户角色-->
     <select id="findRolesByUsername" parameterType="String" resultType="RoleInfo">
         SELECT
-	        t_role.name
+	        t_role.id, t_role.name
         FROM
 	        t_role
         WHERE

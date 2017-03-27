@@ -18,4 +18,6 @@ public interface LoginService {
 
     //安全退出
     SPResult logout(String token);
+
+    SPResult logoutByShiro(String token);
 }
