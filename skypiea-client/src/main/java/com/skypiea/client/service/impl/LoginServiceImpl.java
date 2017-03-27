@@ -57,7 +57,7 @@ public class LoginServiceImpl implements LoginService {
         //在初始化方法中设置回调
         userRealm.setOnUserCallback(new UserRealm.IUserCallback() {
             @Override
-            public void OnUserCallback(UserInfo userInfo) {
+            public void onUserCallback(UserInfo userInfo) {
                 user = userInfo;
             }
         });

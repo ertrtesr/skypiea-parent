@@ -7,11 +7,14 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
 
 /**
  * 作者: huangwenjian
@@ -36,8 +39,16 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        String username = (String) principalCollection.getPrimaryPrincipal();
+        System.out.println("username:" + username);
 
-        return null;
+        //通过username去数据库查询用户角色和角色所对应的权限
+
+        HashSet<String> roleSet = new HashSet<>();
+        roleSet.add("role1");
+        roleSet.add("role2");
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleSet);
+        return info;
     }
 
     /**
@@ -64,7 +75,7 @@ public class UserRealm extends AuthorizingRealm {
         } else {
             //如果通过用户名查找到对应的用户,则调用回调方法
             if (callback != null) {
-                callback.OnUserCallback(user);
+                callback.onUserCallback(user);
             }
             dbUsername = user.getUsername();
         }
@@ -75,12 +86,17 @@ public class UserRealm extends AuthorizingRealm {
         return info;
     }
 
+    /**
+     * 设置回调函数
+     *
+     * @param callback
+     */
     public void setOnUserCallback(IUserCallback callback) {
         this.callback = callback;
     }
 
     public interface IUserCallback {
-        void OnUserCallback(UserInfo userInfo);
+        void onUserCallback(UserInfo userInfo);
     }
 
 //    /**

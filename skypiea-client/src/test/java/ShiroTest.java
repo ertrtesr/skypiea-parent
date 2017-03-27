@@ -1,6 +1,5 @@
 import com.skypiea.client.AppClient;
 import com.skypiea.client.realm.UserRealm;
-import com.skypiea.system.model.UserInfo;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -32,18 +31,8 @@ public class ShiroTest {
     Subject subject;
 
     @Test
-    public void testShiro() {
+    public void testShiroLogin() {
         UsernamePasswordToken token = new UsernamePasswordToken("song17", "1234");
-
-        userRealm.setOnUserCallback(new UserRealm.IUserCallback() {
-            @Override
-            public void OnUserCallback(UserInfo userInfo) {
-                System.out.println(userInfo.getId());
-                System.out.println(userInfo.getUsername());
-                System.out.println(userInfo.getPassword());
-                System.out.println(userInfo.getAuthorization());
-            }
-        });
 
         try {
             subject.login(token);
@@ -54,5 +43,14 @@ public class ShiroTest {
             e.printStackTrace();
             System.out.println("密码错误");
         }
+    }
+
+    @Test
+    public void testShiroPermission() {
+        UsernamePasswordToken token = new UsernamePasswordToken("song17", "1234");
+        subject.login(token);
+        System.out.println("认证通过:" + subject.isAuthenticated());
+        boolean role2 = subject.hasRole("role3");
+        System.out.println("role2:" + role2);
     }
 }

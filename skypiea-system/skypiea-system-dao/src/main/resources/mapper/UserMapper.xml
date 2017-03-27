@@ -24,6 +24,42 @@
         SELECT password FROM t_user WHERE username=#{username};
     </select>
 
+    <!--通过用户id查询用户角色-->
+    <select id="findRolesByUserId" parameterType="int" resultType="RoleInfo">
+        SELECT
+	        t_role.name
+        FROM
+	        t_role
+        WHERE
+            id IN (
+                SELECT
+                    t_user_role.role_id
+                FROM
+                    t_user
+                INNER JOIN t_user_role ON t_user_role.user_id = t_user.id
+                WHERE
+                    t_user.id = #{id}
+            );
+    </select>
+
+    <!--通过用户名查询用户角色-->
+    <select id="findRolesByUsername" parameterType="String" resultType="RoleInfo">
+        SELECT
+	        t_role.name
+        FROM
+	        t_role
+        WHERE
+            id IN (
+                SELECT
+                    t_user_role.role_id
+                FROM
+                    t_user
+                INNER JOIN t_user_role ON t_user_role.username = t_user.username
+                WHERE
+                    t_user.username = #{username}
+            );
+    </select>
+
     <!--添加用户-->
     <insert id="addUser" parameterType="UserInfo">
         <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">

@@ -1,5 +1,7 @@
 package com.skypiea.system.mapper;
 
+import com.skypiea.system.model.PermissionInfo;
+import com.skypiea.system.model.RoleInfo;
 import com.skypiea.system.model.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,6 +23,18 @@ public interface UserMapper {
     UserInfo findUserByPhone(String phone);
 
     UserInfo findUserByEmail(String email);
+
+    //通过用户id查询用户角色
+    List<RoleInfo> findRolesByUserId(int id);
+
+    //通过用户名查询用户角色
+    List<RoleInfo> findRolesByUsername(String username);
+
+    //通过用户id查询用户权限
+    List<PermissionInfo> findPermissionsByUserId(int id);
+
+    //通过用户名查询用户权限
+    List<PermissionInfo> findPermissionsByUsername(String username);
 
     List<UserInfo> findAllUsers();
 
