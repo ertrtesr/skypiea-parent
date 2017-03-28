@@ -66,4 +66,10 @@ public class LoginController {
         SPResult result = loginService.logout(token);
         return result;
     }
+
+    @GetMapping("/logoutByShiro/{token}")
+    public SPResult logoutByShiro(@PathVariable String token) {
+        SPResult result = loginService.logoutByShiro(token);
+        return result;
+    }
 }

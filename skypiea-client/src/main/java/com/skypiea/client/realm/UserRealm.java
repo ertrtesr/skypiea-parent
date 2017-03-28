@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * 作者: huangwenjian
- * 描述:
+ * 描述: 自定义realm,连接数据库的操作
  * 创建时间: 2017-03-25 22:20
  */
 public class UserRealm extends AuthorizingRealm {
@@ -68,8 +68,8 @@ public class UserRealm extends AuthorizingRealm {
         logger.info("doGetAuthenticationInfo:当前用户登录时输入的username<==" + inputUsername);
 
         //定义变量,表示从数据库查到的正确的username和password
-        String dbUsername = null;
-        String dbPassword = null;
+        String dbUsername;
+        String dbPassword;
         UserInfo user = userMapper.findUserByName(inputUsername);
         if (user == null) {
             //如果用户没有找到,返回null
@@ -100,17 +100,4 @@ public class UserRealm extends AuthorizingRealm {
     public interface IUserCallback {
         void onUserCallback(UserInfo userInfo);
     }
-
-//    /**
-//     * 设置用户信息
-//     *
-//     * @param userInfo
-//     */
-//    public void setUserInfo(UserInfo userInfo) {
-//        this.userInfo = userInfo;
-//    }
-//
-//    public UserInfo getUserInfo() {
-//        return userInfo;
-//    }
 }

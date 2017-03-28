@@ -13,6 +13,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Scope;
 
 /**
  * 作者: huangwenjian
@@ -62,6 +63,7 @@ public class ShiroConfiguration {
     }
 
     @Bean
+    @Scope(scopeName = "prototype")
     public Subject getSubject(SecurityManager securityManager) {
         logger.info("注入主体-->subject");
         SecurityUtils.setSecurityManager(securityManager);

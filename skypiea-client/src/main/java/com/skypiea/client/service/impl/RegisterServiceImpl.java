@@ -3,7 +3,6 @@ package com.skypiea.client.service.impl;
 import com.skypiea.client.service.CheckService;
 import com.skypiea.client.service.RegisterService;
 import com.skypiea.common.cons.UserConstants;
-import com.skypiea.common.http.HttpStatus;
 import com.skypiea.common.result.SPResult;
 import com.skypiea.system.mapper.UserMapper;
 import com.skypiea.system.model.UserInfo;
@@ -33,12 +32,11 @@ public class RegisterServiceImpl implements RegisterService {
         if (StringUtils.isNotEmpty(username)) {
             SPResult result = checkService.checkRegisterData(username, 1);
             if (!(boolean) result.getData()) {      //如果为false,代表用户已存在
-                return SPResult.build(HttpStatus.BadRequest, UserConstants.USER_ALREADY_EXIST, "注册失败");
+                return SPResult.fail(UserConstants.USER_ALREADY_EXIST);
             }
         } else {
-            return SPResult.build(HttpStatus.BadRequest, "用户名不能为空");
+            return SPResult.fail("用户名不能为空");
         }
-
         //校验通过,将用户存入数据库
         userMapper.addUser(userInfo);
         return SPResult.ok("注册成功");

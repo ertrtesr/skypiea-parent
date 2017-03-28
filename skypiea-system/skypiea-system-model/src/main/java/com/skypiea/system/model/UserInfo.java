@@ -14,7 +14,6 @@ public class UserInfo {
     private String username;
     private String password;
     private String authorization;
-    private List<RoleInfo> roles;
 
     public int getId() {
         return id;

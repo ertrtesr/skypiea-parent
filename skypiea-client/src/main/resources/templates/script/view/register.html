@@ -4,11 +4,12 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="rl-container ">
                     <h3>CREATE ACCOUNT</h3><br>
-                    <form name="registerForm">
+                    <form name="registerForm"
+                          ng-submit="registerForm.$valid&&usernameAvailable?register(userData):showAlert()">
                         <div class="form-group has-feedback"
                              ng-class="{
                                 'has-success':registerForm.username.$valid&&registerForm.username.$touched,
-                                'has-error':registerForm.username.$invalid&&registerForm.username.$touched
+                                'has-error':(registerForm.username.$invalid||!usernameAvailable)&&registerForm.username.$touched
                              }">
                             <div class="input-group">
                                 <div class="input-group-addon">
@@ -41,8 +42,8 @@
                                 用户名不能为空
                             </p>
                             <!--这段提示只有在用户不存在,同时input中字段填写满足条件时才出现-->
-                            <p class="has-error" ng-show="userExist&&registerForm.username.$valid">
-                                用户已存在
+                            <p class="has-error" ng-show="!usernameAvailable&&registerForm.username.$valid">
+                                该用户名已被注册
                             </p>
                         </div>
 
@@ -111,31 +112,31 @@
                             </p>
                         </div>
 
-                        <div class="form-group has-feedback"
-                             ng-class="{
-                                'has-success':registerForm.email.$valid&&registerForm.email.$touched,
-                                'has-error':registerForm.email.$invalid&&registerForm.email.$touched
-                             }">
-                            <div class="input-group">
-                                <span class="input-group-addon">@</span>
-                                <input id="email"
-                                       name="email"
-                                       type="email"
-                                       ng-model="userData.email"
-                                       class="form-control input-lg font-sm"
-                                       placeholder="请输入邮箱"
-                                       ng-minlength="6"
-                                       ng-maxlength="20"
-                                       required>
-                            </div>
-                            <span ng-show="registerForm.email.$valid&&registerForm.email.$touched"
-                                  class="glyphicon glyphicon-ok form-control-feedback rc-lg"></span>
-                            <span ng-show="registerForm.email.$invalid&&registerForm.email.$touched"
-                                  class="glyphicon glyphicon-remove form-control-feedback rc-lg"></span>
-                            <p class="has-error" ng-show="registerForm.email.$invalid&&registerForm.email.$touched">
-                                邮箱格式不正确
-                            </p>
-                        </div>
+                        <!--<div class="form-group has-feedback"-->
+                        <!--ng-class="{-->
+                        <!--'has-success':registerForm.email.$valid&&registerForm.email.$touched,-->
+                        <!--'has-error':registerForm.email.$invalid&&registerForm.email.$touched-->
+                        <!--}">-->
+                        <!--<div class="input-group">-->
+                        <!--<span class="input-group-addon">@</span>-->
+                        <!--<input id="email"-->
+                        <!--name="email"-->
+                        <!--type="email"-->
+                        <!--ng-model="userData.email"-->
+                        <!--class="form-control input-lg font-sm"-->
+                        <!--placeholder="请输入邮箱"-->
+                        <!--ng-minlength="6"-->
+                        <!--ng-maxlength="20"-->
+                        <!--required>-->
+                        <!--</div>-->
+                        <!--<span ng-show="registerForm.email.$valid&&registerForm.email.$touched"-->
+                        <!--class="glyphicon glyphicon-ok form-control-feedback rc-lg"></span>-->
+                        <!--<span ng-show="registerForm.email.$invalid&&registerForm.email.$touched"-->
+                        <!--class="glyphicon glyphicon-remove form-control-feedback rc-lg"></span>-->
+                        <!--<p class="has-error" ng-show="registerForm.email.$invalid&&registerForm.email.$touched">-->
+                        <!--邮箱格式不正确-->
+                        <!--</p>-->
+                        <!--</div>-->
 
                         <div class="checkbox">
                             <label>

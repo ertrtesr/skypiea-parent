@@ -49,7 +49,7 @@ public class LoginServiceImpl implements LoginService {
     private StringRedisCache redisCache;
 
     @Autowired
-    private Subject subject;
+    private Subject currentUser;
 
     @Autowired
     UserRealm userRealm;
@@ -69,7 +69,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public SPResult login(String username, String password) {
-
         SPResult result = checkService.checkLoginData(username, password);
         if (result.getMsg() == HttpMsg.OK) {
             //登录成功,生成access_token,写入到redis中
@@ -88,10 +87,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public SPResult loginByShiro(String username, String password) {
+        System.out.println("当前登录的subject:"+currentUser);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
-            if (subject != null)
-                subject.login(token);
+            if (currentUser != null)
+                currentUser.login(token);
         } catch (UnknownAccountException e) {
             e.printStackTrace();
             return SPResult.fail(UserConstants.NO_SUCH_USER);
@@ -100,7 +100,6 @@ public class LoginServiceImpl implements LoginService {
             return SPResult.fail(UserConstants.PASSWORD_ERROR);
         }
         //登录成功
-
         //生成accessToken
         String accessToken = TokenUtils.createToken();
         //将user对象序列化成json写入redis
@@ -112,7 +111,7 @@ public class LoginServiceImpl implements LoginService {
             //将accessToken返回给客户端
             return SPResult.ok(accessToken);
         } else {
-            return SPResult.error("服务器初始化user数据失败");
+            return SPResult.error();
         }
     }
 
@@ -140,8 +139,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public SPResult logoutByShiro(String token) {
-        if (subject != null)
-            subject.logout();
+        System.out.println("当前登出的subject:"+currentUser);
+        if (currentUser != null)
+            currentUser.logout();
         redisCache.delete(REDIS_TOKEN_KEY + ":" + token);
         return SPResult.ok();
     }

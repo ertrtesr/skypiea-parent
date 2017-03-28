@@ -12,4 +12,6 @@ public class UserConstants {
     public static final String PASSWORD_ERROR = "密码错误";
     public static final String USERNAME_OR_PASSWORD_ERROR = "用户名或密码错误";
     public static final String USER_TOKEN_NOT_EXIST = "用户token不存在";
+    public static final String USER_AUTHENTICATED_FAILED = "用户认证失败";
+    public static final String USER_AUTHORIZED_FAILED = "用户授权失败";
 }

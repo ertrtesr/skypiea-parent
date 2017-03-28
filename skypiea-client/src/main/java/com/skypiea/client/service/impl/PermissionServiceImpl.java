@@ -5,7 +5,6 @@ import com.skypiea.common.result.SPResult;
 import com.skypiea.system.mapper.UserMapper;
 import com.skypiea.system.model.PermissionInfo;
 import com.skypiea.system.model.RoleInfo;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +18,6 @@ import java.util.List;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
-
-    @Autowired
-    private Subject subject;
 
     @Autowired
     private UserMapper userMapper;
