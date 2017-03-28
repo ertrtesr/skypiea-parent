@@ -13,7 +13,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a ui-sref="login">{{username}}</a></li>
+                <li ng-show="showLoginButton"><a ui-sref="login">登录</a></li>
+                <li ng-show="showUsername"><a>{{username}}</a></li>
                 <li><a href="#">设置</a></li>
                 <li><a ui-sref="home.help">帮助</a></li>
                 <li><a ui-sref="home.about">关于</a></li>
