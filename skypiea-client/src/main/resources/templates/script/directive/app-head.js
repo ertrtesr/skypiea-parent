@@ -6,7 +6,8 @@
         return {
             restrict: 'A',
             replace: true,
-            templateUrl: 'script/view/template/head.html'
+            templateUrl: 'script/view/template/head.html',
+            controller: 'headController'
         }
 
     }]);

@@ -4,7 +4,6 @@ import com.skypiea.client.cache.StringRedisCache;
 import com.skypiea.client.realm.UserRealm;
 import com.skypiea.client.service.CheckService;
 import com.skypiea.client.service.LoginService;
-import com.skypiea.client.service.PermissionService;
 import com.skypiea.common.cons.UserConstants;
 import com.skypiea.common.http.HttpMsg;
 import com.skypiea.common.result.SPResult;
@@ -41,9 +40,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private CheckService checkService;
-
-    @Autowired
-    private PermissionService permissionService;
 
     @Autowired
     private StringRedisCache redisCache;
@@ -87,7 +83,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public SPResult loginByShiro(String username, String password) {
-        System.out.println("当前登录的subject:"+currentUser);
+        System.out.println("当前登录的subject:" + currentUser);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             if (currentUser != null)
@@ -115,6 +111,12 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
+    /**
+     * 通过token获取用户数据
+     *
+     * @param token
+     * @return
+     */
     @Override
     public SPResult getUserByToken(String token) {
         //根据token取用户信息
@@ -139,7 +141,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public SPResult logoutByShiro(String token) {
-        System.out.println("当前登出的subject:"+currentUser);
+        System.out.println("当前登出的subject:" + currentUser);
         if (currentUser != null)
             currentUser.logout();
         redisCache.delete(REDIS_TOKEN_KEY + ":" + token);
