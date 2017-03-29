@@ -13,7 +13,7 @@
             if (accessToken != null) {
                 homeService.getUserByToken(accessToken, function (resp) {
                     var data = resp.data;
-                    $rootScope.$broadcast('responseData', data);
+                    $rootScope.$broadcast('responseData', data, accessToken);
                 });
             }
 

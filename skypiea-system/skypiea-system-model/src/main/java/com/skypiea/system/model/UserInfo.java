@@ -1,7 +1,5 @@
 package com.skypiea.system.model;
 
-import java.util.List;
-
 /**
  * 作者: huangwenjian
  * 描述:
@@ -13,7 +11,8 @@ public class UserInfo {
     private int id;
     private String username;
     private String password;
-    private String authorization;
+
+    private RoleInfo role;
 
     public int getId() {
         return id;
@@ -39,11 +38,11 @@ public class UserInfo {
         this.password = password;
     }
 
-    public String getAuthorization() {
-        return authorization;
+    public RoleInfo getRole() {
+        return role;
     }
 
-    public void setAuthorization(String authorization) {
-        this.authorization = authorization;
+    public void setRole(RoleInfo role) {
+        this.role = role;
     }
 }

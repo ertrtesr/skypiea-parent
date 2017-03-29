@@ -9,12 +9,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">SkyPiea</a>
+            <a class="navbar-brand" href="#">SP客户端</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-show="showLoginButton"><a ui-sref="login">登录</a></li>
-                <li ng-show="showUsername"><a>{{username}}</a></li>
+                <li ng-show="showUsername">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        {{username}} <span ng-class="{true: 'caret', false: ''}[showPopMenu]"></span>
+                    </a>
+                    <ul ng-show="showPopMenu" class="dropdown-menu">
+                        <li><a ng-click="logout(accessToken)">注销</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">设置</a></li>
                 <li><a ui-sref="home.help">帮助</a></li>
                 <li><a ui-sref="home.about">关于</a></li>

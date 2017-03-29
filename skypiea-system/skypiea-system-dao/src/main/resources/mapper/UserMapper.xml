@@ -14,9 +14,32 @@
         SELECT * FROM t_user WHERE  username=#{username};
     </select>
 
-    <!--查找所有的用户-->
-    <select id="findAllUsers" resultType="UserInfo">
-        SELECT * FROM t_user;
+    <resultMap id="UsersAndRolesRstMap" type="UserInfo">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+        <association property="role" javaType="RoleInfo">
+            <id column="role_id" property="id"></id>
+            <result column="role_name" property="name"></result>
+        </association>
+    </resultMap>
+
+    <!--查找所有用户(包括用户对应的角色,后续还可以扩展)-->
+    <select id="findAllUsers" resultMap="UsersAndRolesRstMap">
+        SELECT
+            t_user.id,
+            t_user.username,
+            t_user.password,
+            t_role.id role_id,
+            t_role.name role_name
+        FROM
+            t_user,
+            t_role,
+            t_user_role
+        WHERE
+            t_user_role.user_id = t_user.id
+        AND t_user_role.role_id = t_role.id
+        ORDER BY t_user.id
     </select>
 
     <!--通过用户名查找密码-->
@@ -65,12 +88,23 @@
         <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID();
         </selectKey>
-        INSERT INTO t_user(username,password,authorization) VALUES(#{username},#{password},#{authorization});
+        INSERT INTO t_user(username,password) VALUES(#{username},#{password});
+    </insert>
+
+
+    <!--往t_user_role中添加用户对应的角色-->
+    <insert id="addUserRole" parameterType="UserInfo">
+        INSERT INTO t_user_role(user_id,role_id,username) VALUES(#{id},#{role.id},#{username});
     </insert>
 
     <!--更新用户-->
     <update id="updateUser" parameterType="UserInfo">
-        UPDATE t_user SET password=#{password},authorization=#{authorization} WHERE username=#{username};
+        UPDATE t_user SET password=#{password} WHERE username=#{username};
+    </update>
+
+    <!--更新用户关系表-->
+    <update id="updateUserRole" parameterType="String">
+        UPDATE t_user_role SET role_id=#{roleId} WHERE username=#{username};
     </update>
 
     <!--删除用户-->

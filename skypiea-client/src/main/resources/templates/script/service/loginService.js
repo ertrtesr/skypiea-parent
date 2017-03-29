@@ -16,6 +16,15 @@
             })
         }
 
+        this.logout = function (accessToken, fn) {
+            $http({
+                url: '/client/user/logoutByShiro/' + accessToken,
+                method: 'GET'
+            }).then(function (response) {
+                fn(response);
+            });
+        }
+
     }]);
 
 })(angular)

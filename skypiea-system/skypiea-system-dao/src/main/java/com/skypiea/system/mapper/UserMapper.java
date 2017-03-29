@@ -47,11 +47,18 @@ public interface UserMapper {
     String findPasswordByUsername(String username);
 
     /**
-     * 添加用户,返回自增长ID
+     * 往t_user表中添加用户,返回自增长ID
      *
      * @param user
      */
     void addUser(UserInfo user);
+
+    /**
+     * 往t_user_role关系表中添加用户id,用户名,角色id
+     *
+     * @param user
+     */
+    void addUserRole(UserInfo user);
 
     /**
      * 更新用户
@@ -59,6 +66,13 @@ public interface UserMapper {
      * @param newUser
      */
     void updateUser(UserInfo newUser);
+
+    /**
+     * 根据用户名更新t_user_role关系表中的角色id
+     *
+     * @param username
+     */
+    void updateUserRole(String username);
 
     /**
      * 根据用户名删除用户

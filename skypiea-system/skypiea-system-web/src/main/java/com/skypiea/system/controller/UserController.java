@@ -1,6 +1,7 @@
 package com.skypiea.system.controller;
 
 import com.skypiea.common.result.SPResult;
+import com.skypiea.system.model.RoleInfo;
 import com.skypiea.system.model.UserInfo;
 import com.skypiea.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,28 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    private SPResult addUser(UserInfo user) {
-        //account为前台页面传递过来的实体类,前台页面所定义的字段名需要与后台保持一致
-        //将account存入数据库
+    private SPResult addUser(String username, String password, String roleName) {
+        UserInfo user = new UserInfo();
+        user.setUsername(username);
+        user.setPassword(password);
+        RoleInfo role = new RoleInfo();
+        int roleId = 1;
+        switch (roleName) {
+            case "普通用户":
+                roleId = 1;
+                break;
+            case "注册会员":
+                roleId = 2;
+                break;
+            case "管理员":
+                roleId = 3;
+                break;
+            default:
+                break;
+        }
+        role.setId(roleId);
+        role.setName(roleName);
+        user.setRole(role);
         SPResult result = userService.addUser(user);
         return result;
     }

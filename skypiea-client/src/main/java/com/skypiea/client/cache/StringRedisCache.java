@@ -20,7 +20,7 @@ public class StringRedisCache {
     private StringRedisTemplate template;
 
     public void add(String key, String value) {
-        template.opsForValue().set(key, value);
+        template.opsForValue().set(key,value);
     }
 
     public void send(String key, String value) {

@@ -25,7 +25,10 @@
         $scope.userData = {
             username: '',
             password: '',
-            authorization: ''
+            role: {
+                id: '',
+                name: ''
+            }
         };
 
         //定义获取用户列表的方法
@@ -42,6 +45,7 @@
 
         //获取用户列表
         userManagerService.getUserList(function (resp) {
+            console.log(resp.data);
             $scope.userList = resp.data.data;
             $scope.loading = false; //加载完成以后隐藏进度条
         });
@@ -52,7 +56,7 @@
             $scope.btnText = text;
             $scope.userData.username = '';
             $scope.userData.password = '';
-            $scope.userData.authorization = '';
+            $scope.userData.role = {};
         }
 
         //点击"操作"中"用户编辑"按钮时调用的方法
@@ -61,7 +65,7 @@
             $scope.btnText = text;
             $scope.userData.username = user.username;
             $scope.userData.password = user.password;
-            $scope.userData.authorization = user.authorization;
+            $scope.userData.role = user.roleInfo;
         }
 
         //提交用户表单

@@ -3,12 +3,12 @@ package com.skypiea.system.service.impl;
 import com.skypiea.common.cons.UserConstants;
 import com.skypiea.common.http.HttpStatus;
 import com.skypiea.common.result.SPResult;
+import com.skypiea.common.utils.ExceptionUtils;
 import com.skypiea.system.mapper.UserMapper;
 import com.skypiea.system.model.UserInfo;
 import com.skypiea.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -55,20 +55,39 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 添加用户
+     *
+     * @param user
+     * @return
+     */
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public SPResult addUser(UserInfo newUser) {
-        String username = newUser.getUsername();
-        UserInfo user = userMapper.findUserByName(username);
-        if (user != null) {       //如果用户已存在,则返回已存在的json
-            return SPResult.build(HttpStatus.OK, UserConstants.USER_ALREADY_EXIST);
+    @Transactional
+    public SPResult addUser(UserInfo user) {
+        String username = user.getUsername();
+        UserInfo dbUser = userMapper.findUserByName(username);
+        if (dbUser != null) {       //如果用户已存在,则返回已存在的json
+            return SPResult.fail(UserConstants.USER_ALREADY_EXIST);
         } else {
             //如果数据库中不存在该用户,则存入数据库
-            userMapper.addUser(newUser);
-            return SPResult.ok(newUser);
+            try {
+                //这两步操作要放在一个事务中
+                userMapper.addUser(user);           //往t_user表中添加数据
+                userMapper.addUserRole(user);       //往t_user_role表中添加关系数据
+                return SPResult.ok(user);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return SPResult.error(ExceptionUtils.getStackTrace(e));
+            }
         }
     }
 
+    /**
+     * 更新用户数据
+     *
+     * @param newUser 新的用户,但是id和username是不能更改的
+     * @return
+     */
     @Override
     public SPResult updateUser(UserInfo newUser) {
         String username = newUser.getUsername();
@@ -82,6 +101,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 根据用户名删除用户
+     *
+     * @param username
+     * @return
+     */
     @Override
     public boolean deleteUser(String username) {
         boolean result = true;

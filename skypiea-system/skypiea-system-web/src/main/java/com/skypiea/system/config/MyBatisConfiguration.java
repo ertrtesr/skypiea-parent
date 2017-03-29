@@ -19,7 +19,7 @@ import javax.sql.DataSource;
  */
 
 @Configuration
-@MapperScan(basePackages = {"com.skypiea.system.mapper", "com.skypiea.client.*.mapper"})
+@MapperScan(basePackages = {"com.skypiea.system.mapper"})
 public class MyBatisConfiguration {
 
     @Autowired
@@ -31,7 +31,7 @@ public class MyBatisConfiguration {
         //设置数据源
         sqlSessionFactoryBean.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:/mapper/*Mapper.xml"));
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mapper/*Mapper.xml"));
         //设置别名扫描路径
         sqlSessionFactoryBean.setTypeAliasesPackage("com.skypiea.system.model");
         return sqlSessionFactoryBean.getObject();
