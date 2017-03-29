@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skypiea.system.mapper.AdminMapper">
+
+
+    <!--通过用户名查找用户-->
+    <select id="findAdminByName" parameterType="String" resultType="UserInfo">
+        SELECT * FROM t_admin WHERE username=#{username};
+    </select>
+
+    <!--通过用户名查找密码-->
+    <select id="findPasswordByUsername" parameterType="String" resultType="String">
+        SELECT password FROM t_admin WHERE username=#{username};
+    </select>
+</mapper>
+

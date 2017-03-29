@@ -2,7 +2,7 @@ package com.skypiea.system.service;
 
 import com.skypiea.common.result.SPResult;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * 作者: huangwenjian
@@ -11,5 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface LoginService {
 
-    SPResult login(String username, String password, HttpServletRequest request);
+    SPResult login(String username, String password, HttpSession session);
+
+    SPResult getUserByToken(String token, HttpSession session);
 }
