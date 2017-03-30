@@ -2,9 +2,8 @@
     'use strict';
     angular.module('app').service('loginService', ['$http', function ($http) {
 
-        this.checkUsername = function (username, successFn, errorFn) {
-
-            $http.get('/sys/user?username=' + username).then(function (response) {
+        this.checkAdmin = function (username, successFn, errorFn) {
+            $http.get('/sys/checkAdmin?username=' + username).then(function (response) {
                 successFn(response);            //将成功结果回调到loginController中
             }, function (error) {
                 errorFn(error);
@@ -23,6 +22,29 @@
             }).then(function (response) {
                 successFn(response);
             });
+        }
+
+        this.login = function (username, password, fn) {
+            $http({
+                url: '/sys/login',
+                method: 'POST',
+                params: {
+                    username: username,
+                    password: password
+                }
+            }).then(function successCallback(response) {
+                fn(response);
+            });
+        }
+
+        this.logout = function (token, fn) {
+            $http({
+                url: 'sys/logout/' + token,
+                method: 'GET'
+            }).then(function (response) {
+                fn(response);
+            });
+
         }
     }]);
 

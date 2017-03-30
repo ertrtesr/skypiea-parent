@@ -16,7 +16,7 @@ angular.module('app').config([
                 templateUrl: 'app/view/home.html',
                 controller: 'homeController'
             })
-            .state('home.user-manager', {  //这样的话dashbord.html就嵌套在home.html之下了,由home.html中的ui-view来管理
+            .state('home.user-manager', {  //这样的话user-manager.html就嵌套在home.html之下了,由home.html中的ui-view来管理
                 url: '/user-manager',
                 templateUrl: 'app/view/user-manager.html',
                 controller: 'userManagerController'
@@ -30,20 +30,20 @@ angular.module('app').config([
                 templateUrl: 'app/view/family-manager.html'
             })
             .state('home.family-upload', {
-                url: '/family-file',
-                templateUrl: 'app/view/family-file.html'
+                url: '/family-upload',
+                templateUrl: 'app/view/family-upload.html'
             })
             .state('home.music-upload', {
-                url: '/music-file',
-                templateUrl: 'app/view/music-file.html'
+                url: '/music-upload',
+                templateUrl: 'app/view/music-upload.html'
             })
             .state('home.music-play', {
                 url: '/music-play',
                 templateUrl: 'app/view/music-play.html'
             })
             .state('home.photo-upload', {
-                url: '/photo-file',
-                templateUrl: 'app/view/photo-file.html'
+                url: '/photo-upload',
+                templateUrl: 'app/view/photo-upload.html'
             })
             .state('home.photo-beautify', {
                 url: '/photo-beautify',

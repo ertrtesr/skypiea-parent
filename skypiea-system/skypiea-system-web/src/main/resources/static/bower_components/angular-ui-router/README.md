@@ -83,7 +83,7 @@ The majority of UI-Router's power is in its ability to nest states & views.
 
 >
 ```html
-<!-- index.html -->
+<!--index.html-->
 <body>
     <div ui-view></div>
     <!-- We'll also add some navigation: -->

@@ -63,26 +63,34 @@ a {
 .nav-sidebar-sub {
 }
 
+/*a标签的字体颜色*/
 .nav-sidebar li a {
     padding-right: 20px;
     padding-left: 10px;
     color: #9d9d9d;
 }
 
-.nav-sidebar .active a {
-    color: #ffffff;
-    background-color: #222222;
-}
-
-.nav-sidebar li a:hover {
+.nav-sidebar > li > a:hover {
     color: #ffffff;
     background-color: #222222;
 }
 
 /*nav-sidebar类下面被激活的li标签下的被选中的a标签的颜色*/
-.nav-sidebar .active a:focus {
+.nav-sidebar > li > a:focus {
     color: #ffffff;
     background-color: #222222;
+    outline: none;
+}
+
+.nav-sidebar > li > ul > li > a:hover {
+    color: #ffffff;
+    background-color: #333333;
+}
+
+.nav-sidebar > li > ul > li > a:focus {
+    color: #ffffff;
+    background-color: #333333;
+    outline:none;
 }
 
 /*菜单一级标题样式*/
@@ -91,7 +99,7 @@ a {
 }
 
 .menu-title-sub {
-    margin-left: 40px;
+    margin-left: 5px;
 }
 
 .icon-primary-dashbord {
@@ -117,4 +125,9 @@ a {
 /*主内容区域样式*/
 .main {
     margin-top: 50px;
+}
+
+.a-menu-active {
+    background-color: #222222;
+    color: #ffffff;
 }

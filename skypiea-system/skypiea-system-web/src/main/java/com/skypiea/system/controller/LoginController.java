@@ -20,6 +20,12 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @GetMapping("/checkAdmin")
+    public SPResult checkAdmin(String username) {
+        SPResult result = loginService.checkAdmin(username);
+        return result;
+    }
+
     @PostMapping("/login")
     public SPResult login(String username, String password, HttpSession session) {
         SPResult result = loginService.login(username, password, session);
@@ -27,8 +33,14 @@ public class LoginController {
     }
 
     @GetMapping("/token/{token}")
-    public SPResult getUserByToken(@PathVariable String token, HttpSession session) {
+    public SPResult getAdminByToken(@PathVariable String token, HttpSession session) {
         SPResult result = loginService.getUserByToken(token, session);
+        return result;
+    }
+
+    @GetMapping("/logout/{token}")
+    public SPResult logout(@PathVariable String token, HttpSession session) {
+        SPResult result = loginService.logout(token, session);
         return result;
     }
 }

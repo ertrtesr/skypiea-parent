@@ -1,35 +1,10 @@
 <div class="col-sm-3 col-md-2 sidebar" ng-controller="menuController">
     <ul class="nav nav-sidebar">
-        <!--<li ui-sref-active="active">-->
-        <!--<a ui-sref="home.dashbord">-->
-        <!--<i class="glyphicon glyphicon-stats icon-primary-dashbord"></i>-->
-        <!--<span class="menu-title">用户</span>-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--<li ui-sref-active="active">-->
-        <!--&lt;!&ndash;<a ui-sref="home.reports">Reports</a>&ndash;&gt;-->
-        <!--<a ui-sref="home.photo">-->
-        <!--<i class="glyphicon glyphicon-camera icon-primary-photo"></i>-->
-        <!--<span class="menu-title">照片</span>-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--<li ui-sref-active="active">-->
-        <!--<a ui-sref="home.music">-->
-        <!--<i class="glyphicon glyphicon-music icon-primary-music"></i>-->
-        <!--<span class="menu-title">音乐</span>-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--<li ui-sref-active="active">-->
-        <!--<a ui-sref="home.mail">-->
-        <!--<i class="glyphicon glyphicon-envelope icon-primary-mail"></i>-->
-        <!--<span class="menu-title">邮箱</span>-->
-        <!--</a>-->
-        <!--</li>-->
-
         <!--点击的时候将当前的menuItem的名字传入到函数中,获取当前点击条目的名字-->
-        <li ng-repeat="menuItem in menuList track by $index" ng-init="outerIndex=$index"
-            ui-sref-active="active">
-            <a ng-click="menuItem.childList.length>0?toggleState(outerIndex):goPage(menuItem.menuId)">
+        <!--$index是每个menuItem的索引值-->
+        <li ng-repeat="menuItem in menuList track by $index" ng-init="outerIndex=$index">
+            <a tabindex="1"
+               ng-click="menuItem.childList.length>0?toggleState(outerIndex):goPage(menuItem.menuId);setOuterFocus()">
                 <!--动态添加多种样式的写法-->
                 <i class="glyphicon" ng-class="{
                 'glyphicon-stats icon-primary-dashbord':menuItem.menuName=='用户',
@@ -45,12 +20,12 @@
             <!--父条目点击时进行判断是否有子条目,有的话就点击展开或者收缩,否则就进行路由跳转-->
             <ul class="nav">
                 <li ng-repeat="sonMenuItem in menuItem.childList track by $index" ng-init="innerIndex=$index"
-                    ng-show="menuItem.state=='open'"
-                    ui-sref-active="active">
-
-                    <a ng-click="sonMenuItem.childList.length>0?toggleSonState(outerIndex,innerIndex):goPage(sonMenuItem.menuId)">
+                    ng-show="menuItem.state=='open'">
+                    <a tabindex="1"
+                       ng-click="sonMenuItem.childList.length>0?toggleSonState(outerIndex,innerIndex):goPage(sonMenuItem.menuId)">
+                        &nbsp;&nbsp;&nbsp;
                         <i class="glyphicon glyphicon-menu-right"></i>
-                        <span class="menu-title">{{sonMenuItem.menuName}}</span>
+                        <span class="menu-title-sub">{{sonMenuItem.menuName}}</span>
                     </a>
                 </li>
             </ul>

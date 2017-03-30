@@ -3,7 +3,7 @@
 
     angular.module('app').controller('userManagerController', ['$scope', 'userManagerService', function ($scope, userManagerService) {
 
-        console.log("--------userManagerController Start!!--------");
+        console.log("userManagerController启动了");
 
         var constants = {
             USER_ALREADY_EXIST: '用户已存在',

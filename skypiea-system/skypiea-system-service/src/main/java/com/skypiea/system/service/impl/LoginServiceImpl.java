@@ -25,6 +25,15 @@ public class LoginServiceImpl implements LoginService {
     private AdminMapper adminMapper;
 
     @Override
+    public SPResult checkAdmin(String username) {
+        UserInfo user = adminMapper.findAdminByName(username);
+        if (user == null) {
+            return SPResult.fail(UserConstants.NO_SUCH_USER);
+        }
+        return SPResult.ok();
+    }
+
+    @Override
     public SPResult login(String username, String password, HttpSession session) {
 
         UserInfo user = adminMapper.findAdminByName(username);
@@ -50,5 +59,19 @@ public class LoginServiceImpl implements LoginService {
             return SPResult.fail(UserConstants.NO_SUCH_USER);
         }
         return SPResult.ok(user);
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param token
+     * @param session
+     * @return
+     */
+    @Override
+    public SPResult logout(String token, HttpSession session) {
+        //从session中删除token
+        session.removeAttribute("session_key:" + token);
+        return SPResult.ok();
     }
 }

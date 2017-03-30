@@ -1,5 +1,5 @@
 <!--头部-->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="headController">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -13,7 +13,16 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a ui-sref="login">登录</a></li>
+                <li ng-show="showLoginButton"><a ui-sref="login">登录</a></li>
+                <li ng-show="showAdmin">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        {{username}} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="logout(token)">退出登录</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">设置</a></li>
                 <li><a ui-sref="home.help">帮助</a></li>
                 <li><a ui-sref="home.about">关于</a></li>

@@ -8,7 +8,8 @@
             return {
                 restrict: 'A',
                 replace: true,
-                templateUrl: 'app/view/template/head.html'
+                templateUrl: 'app/view/template/head.html',
+                controller: 'headController'
             }
         }]);
 

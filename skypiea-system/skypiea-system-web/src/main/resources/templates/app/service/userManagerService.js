@@ -44,5 +44,14 @@
             });
         }
 
+        this.getUserByToken = function (token, fn) {
+            $http({
+                url:'sys/token/'+token,
+                method:'GET',
+            }).then(function successCallback(response) {
+                fn(response);
+            });
+        }
+
     }]);
 })(angular)

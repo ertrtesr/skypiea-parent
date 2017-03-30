@@ -11,7 +11,11 @@ import javax.servlet.http.HttpSession;
  */
 public interface LoginService {
 
+    SPResult checkAdmin(String username);
+
     SPResult login(String username, String password, HttpSession session);
 
     SPResult getUserByToken(String token, HttpSession session);
+
+    SPResult logout(String token, HttpSession session);
 }

@@ -22,10 +22,8 @@
                         var accessToken = resp.data.data;
                         //将token存到本地
                         localFactory.set('accessToken', accessToken);
-                        var savedToken = localFactory.get('accessToken');
-                        console.log(savedToken);
                         // 跳转到首页
-                        $state.go('home.my');
+                        $state.go('home');
                     } else {
                         alert("登录信息有误!");
                     }

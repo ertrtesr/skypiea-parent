@@ -3,8 +3,10 @@
 
     angular.module('app').controller('loginController', [
         '$scope',
+        '$state',
         'loginService',
-        function ($scope, loginService) {
+        'localFactory',
+        function ($scope, $state, loginService, localFactory) {
 
 
             $scope.userExist = true;            //判断用户是否存在的变量
@@ -17,12 +19,10 @@
             };
 
             //通过往service中传递回调函数,来获取service网络请求后得到的参数,否则获取不到
-            $scope.checkUsername = function (username) {
-
-                loginService.checkUsername(username, function (resp) {
-                    // console.log(resp);
-                    if (resp.data.data == null) {
-                        //如果用户不存在
+            $scope.checkAdmin = function (username) {
+                loginService.checkAdmin(username, function (resp) {
+                    if (resp.data.status == 400) {
+                        //用户名不存在
                         $scope.userExist = false;
                     } else {
                         $scope.userExist = true;
@@ -33,17 +33,19 @@
             //监听用户名变化,如果输入框中用户名改变的话,就不再显示"用户不存在的提示信息"
             $scope.$watch('userData.username', function (newVal, oldVal) {
                 if (newVal != 'undefined') {
-                    $scope.checkUsername(newVal);
+                    $scope.checkAdmin(newVal);
                 }
             });
 
-            $scope.submitForm = function (userData) {
-                loginService.checkPassword(userData, function (resp) {
-                    console.log(resp);
-                    if (resp.data.data == '密码正确') {
-                        alert('密码正确');
-                    } else {
-                        alert('密码错误');
+            $scope.login = function (username, password) {
+                loginService.login(username, password, function (resp) {
+                    if (resp.data.status == 200) {
+                        //登录成功
+                        var accessToken = resp.data.data;
+                        //将token存储到本地
+                        localFactory.set("accessToken", accessToken);
+                        //跳转到首页
+                        $state.go('home');
                     }
                 });
             }

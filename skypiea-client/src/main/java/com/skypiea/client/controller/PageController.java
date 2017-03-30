@@ -14,6 +14,6 @@ public class PageController {
 
     @RequestMapping("/client")
     public String index() {
-        return "index";
+        return "indexdd";
     }
 }
