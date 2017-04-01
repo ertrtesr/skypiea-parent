@@ -1,13 +1,13 @@
-package com.skypiea.client.service.impl;
+package com.skypiea.system.service.impl;
 
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
-import com.skypiea.client.service.MongoFileService;
 import com.skypiea.common.result.SPResult;
 import com.skypiea.common.utils.ExceptionUtils;
 import com.skypiea.common.utils.IOUtils;
 import com.skypiea.common.utils.TimeUtils;
 import com.skypiea.system.model.GridFSFileInfo;
+import com.skypiea.system.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -28,7 +28,7 @@ import java.util.List;
  * 创建时间: 2017-03-21 22:59
  */
 @Service
-public class MongoFileServiceImpl implements MongoFileService {
+public class FileServiceImpl implements FileService {
 
     @Autowired
     private GridFsTemplate gridFsTemplate;

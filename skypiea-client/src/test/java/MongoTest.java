@@ -1,9 +1,9 @@
 import com.mongodb.BasicDBObject;
 import com.mongodb.gridfs.GridFSFile;
 import com.skypiea.client.AppClient;
-import com.skypiea.client.pojo.GridFSFileInfo;
 import com.skypiea.common.utils.JsonUtils;
 import com.skypiea.common.utils.TimeUtils;
+import com.skypiea.system.model.GridFSFileInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

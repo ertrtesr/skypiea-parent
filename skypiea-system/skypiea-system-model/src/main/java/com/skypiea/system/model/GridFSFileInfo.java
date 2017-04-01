@@ -1,4 +1,4 @@
-package com.skypiea.client.pojo;
+package com.skypiea.system.model;
 
 import com.mongodb.DBObject;
 
@@ -8,23 +8,6 @@ import com.mongodb.DBObject;
  * 创建时间: 2017-03-20 10:22
  */
 public class GridFSFileInfo {
-
-//    System.out.println("id:" + id);
-//        System.out.println("contentType:" + contentType);
-//        System.out.println("filename:" + filename);
-//        System.out.println("length:" + length);
-//        System.out.println("md5:" + md5);
-//        System.out.println("metaData:" + data.toString());
-//        System.out.println("date:" + TimeUtils.date2String(date));
-
-//    GridFSFile gridFSFile = gridFsTemplate.store(content, metaData);
-//    String id = gridFSFile.getId().toString();
-//    String contentType = gridFSFile.getContentType();
-//    String filename = gridFSFile.getFilename();
-//    long length = gridFSFile.getLength();
-//    String md5 = gridFSFile.getMD5();
-//    DBObject data = gridFSFile.getMetaData();
-//    Date date = gridFSFile.getUploadDate();
 
     private String _id;
     private String contentType;
