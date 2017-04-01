@@ -1,7 +1,42 @@
-<div ng-controller="mailSendController">
-    <h2>发送邮件</h2>
-    <p>wangEditor 集成到 angular 的示例</p>
-    <div id="editor-trigger" ng-model="editorContent" content-editable="true" style="width: 100%;height: 300px;"></div>
+<div style="background-color: #f6f8f8; padding: 0 22px;" ng-controller="mailSendController">
+    <!-- header -->
+    <div class="padder-v bg-light lter b-b">
+        <div class="btn-group m-r-sm">
+            <a href class="btn btn-sm btn-default w-xxs w-auto-xs">
+                <i class="glyphicon glyphicon-floppy-save"></i>
+            </a>
+            <a ui-sref="home.mail.list" class="btn btn-sm btn-default w-xxs w-auto-xs">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </div>
+    </div>
+
+    <form name="newMail" class="m-t-lg">
+        <div class="form-group">
+            <label class="control-label">收件人:</label>
+            <div>
+                <input type="text" class="form-control" ng-model="mail.subject">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">主题:</label>
+            <div>
+                <input type="text" class="form-control" ng-model="mail.subject">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">邮件正文:</label>
+            <div>
+                <div id="editor-trigger" ng-model="editorContent" content-editable="true" style="height: 300px;"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <button class="btn btn-info w-xs">发送</button>
+            </div>
+        </div>
+    </form>
+
     <hr>
     <p><b>以下是编辑器的内容：</b></p>
     <p ng-bind="editorContent"></p>
