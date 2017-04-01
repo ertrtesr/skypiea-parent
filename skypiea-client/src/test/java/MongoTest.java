@@ -48,7 +48,7 @@ public class MongoTest {
         GridFSFileInfo fileInfo = new GridFSFileInfo();
         fileInfo.set_id(gridFSFile.getId().toString());
         fileInfo.setContentType(gridFSFile.getContentType());
-        fileInfo.setFileName(gridFSFile.getFilename());
+        fileInfo.setFilename(gridFSFile.getFilename());
         fileInfo.setLength(gridFSFile.getLength());
         fileInfo.setMd5(gridFSFile.getMD5());
         fileInfo.setMetaData(gridFSFile.getMetaData());

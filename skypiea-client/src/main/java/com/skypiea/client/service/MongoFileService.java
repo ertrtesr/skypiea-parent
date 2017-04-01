@@ -3,6 +3,8 @@ package com.skypiea.client.service;
 import com.skypiea.common.result.SPResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 作者: huangwenjian
  * 描述:
@@ -26,9 +28,13 @@ public interface MongoFileService {
      */
     SPResult uploadFiles(MultipartFile[] files);
 
-    SPResult findFileById(String _id);
+    SPResult getFileInfoById(String _id);
 
-    SPResult findFileByName(String fileName);
+    SPResult getFileInfoByName(String fileName);
+
+    void getFileById(String _id, HttpServletResponse response);
+
+    void getFileByName(String filename,HttpServletResponse response);
 
     SPResult deleteFileById(String _id);
 

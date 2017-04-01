@@ -6,6 +6,8 @@ angular.module('app').config([
     '$urlRouterProvider',
     '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $urlRouterProvider.when("", "/user-manager");
+        //用/mail/{fold}去匹配
+        $urlRouterProvider.when('/mail', '/mail/{fold}');
         $stateProvider
             .state('login', {
                 url: '/login',      //网址#后面所跟的路径
@@ -60,6 +62,15 @@ angular.module('app').config([
             .state('home.about', {
                 url: '/about',
                 templateUrl: 'app/view/about.html'
+            })
+            .state('home.mail.send', {
+                url: '/send',           //只需要加/send就行了,会自动拼接在/mail后面
+                templateUrl: 'app/view/mail-send.html',
+                controller: 'mailSendController'
+            })
+            .state('home.mail.list', {
+                url: '/{fold}',
+                templateUrl: 'app/view/mail-list.html'
             });
         $urlRouterProvider.otherwise('/user-manager');
         $locationProvider.hashPrefix('');

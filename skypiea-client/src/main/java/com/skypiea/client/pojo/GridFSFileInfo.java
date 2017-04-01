@@ -28,7 +28,7 @@ public class GridFSFileInfo {
 
     private String _id;
     private String contentType;
-    private String fileName;
+    private String filename;
     private long length;
     private String md5;
     private DBObject metaData;
@@ -54,11 +54,11 @@ public class GridFSFileInfo {
     }
 
     public String getFileName() {
-        return fileName;
+        return filename;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public long getLength() {

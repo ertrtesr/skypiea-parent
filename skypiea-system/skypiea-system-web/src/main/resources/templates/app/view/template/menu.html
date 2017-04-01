@@ -3,7 +3,7 @@
         <!--点击的时候将当前的menuItem的名字传入到函数中,获取当前点击条目的名字-->
         <!--$index是每个menuItem的索引值-->
         <li ng-repeat="menuItem in menuList track by $index" ng-init="outerIndex=$index">
-            <a tabindex="1"
+            <a ng-class="menuItem.selected==1?'a-menu-active':'a-menu-normal'"
                ng-click="menuItem.childList.length>0?toggleState(outerIndex):goPage(menuItem.menuId);setOuterFocus()">
                 <!--动态添加多种样式的写法-->
                 <i class="glyphicon" ng-class="{
@@ -14,16 +14,16 @@
                 'glyphicon-envelope icon-primary-mail':menuItem.menuName=='邮箱'
                 }">
                 </i>
-                <span class="menu-title">{{menuItem.menuName}}</span>
+                <span class="menu-title has">{{menuItem.menuName}}</span>
             </a>
             <!--遍历的时候既可以获取到父条目的所有属性,也能获取到每个子条目的所有属性-->
             <!--父条目点击时进行判断是否有子条目,有的话就点击展开或者收缩,否则就进行路由跳转-->
             <ul class="nav">
                 <li ng-repeat="sonMenuItem in menuItem.childList track by $index" ng-init="innerIndex=$index"
                     ng-show="menuItem.state=='open'">
-                    <a tabindex="1"
+                    <a ng-class="sonMenuItem.selected==1?'a-son-menu-active':'a-menu-normal'"
                        ng-click="sonMenuItem.childList.length>0?toggleSonState(outerIndex,innerIndex):goPage(sonMenuItem.menuId)">
-                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="glyphicon glyphicon-menu-right"></i>
                         <span class="menu-title-sub">{{sonMenuItem.menuName}}</span>
                     </a>

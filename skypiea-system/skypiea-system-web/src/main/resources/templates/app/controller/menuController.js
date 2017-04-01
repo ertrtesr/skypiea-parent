@@ -33,7 +33,6 @@
                 var srcPath = $location.path();
                 var path = srcPath.substring(srcPath.indexOf("/") + 1);
                 operateMenuByPath(path);        //根据路径操作菜单状态
-                $scope.$apply();                //apply的作用就是让指定的表达式重新同步
             });
 
             /**
@@ -64,32 +63,70 @@
                     menuId = 5;
                 }
 
-                //此处只能用for循环,因为需要获得父子菜单的索引
+                // //此处只能用for循环,因为需要获得父子菜单的索引
+                // for (var i = 0; i < $scope.menuList.length; i++) {
+                //     //将所有的父menuItem的选中状态先归0
+                //     $scope.menuList[i].selected = 0;
+                //     //比较自定义的menuId和menuItem中的menuId是否相等
+                //     if (menuId == $scope.menuList[i].menuId) {
+                //         console.log('找到对应的:' + menuId);
+                //         console.log($scope.menuList[i]);
+                //         //父菜单:更改菜单的选中状态
+                //         $scope.menuList[i].selected = 1;
+                //
+                //     } else {
+                //         for (var j = 0; j < $scope.menuList[i].childList.length; j++) {
+                //             //将所有子menuItem的选中状态先归0
+                //             $scope.menuList[i].childList[j].selected = 0;
+                //             if (menuId == $scope.menuList[i].childList[j].menuId) {
+                //                 console.log('找到对应的:' + menuId);
+                //                 //找到子菜单以后:更改父菜单的开闭状态和选中状态,以及子菜单的选中状态
+                //                 $scope.menuList[i].state = 'open';
+                //                 $scope.menuList[i].selected = 1;                    //0代表不选中,1代表选中
+                //                 //子菜单更改为选中状态
+                //                 $scope.menuList[i].childList[j].selected = 1;
+                //                 break;
+                //             }
+                //         }
+                //     }
+                // }
+
+                clearSelectedStatus();          //重置菜单的选中状态
+
                 for (var i = 0; i < $scope.menuList.length; i++) {
-                    //比较自定义的menuId和menuItem中的menuId是否相等
                     if (menuId == $scope.menuList[i].menuId) {
                         console.log('找到对应的:' + menuId);
                         console.log($scope.menuList[i]);
                         //父菜单:更改菜单的选中状态
-
-                    } else {
-                        for (var j = 0; j < $scope.menuList[i].childList.length; j++) {
-                            if (menuId == $scope.menuList[i].childList[j].menuId) {
-                                var sonMenuItem = $scope.menuList[i].childList[j];
-                                console.log('找到对应的:' + menuId);
-                                //找到子菜单以后:更改父菜单的开闭状态和选中状态,以及子菜单的选中状态
-                                $scope.menuList[i].state = 'open';
-                                console.log(sonMenuItem);
-                                console.log($scope.menuList[i]);
-                                break;
-                            }
+                        $scope.menuList[i].selected = 1;
+                        break;
+                    }
+                    for (var j = 0; j < $scope.menuList[i].childList.length; j++) {
+                        //比较自定义的menuId和menuItem中的menuId是否相等
+                        if (menuId == $scope.menuList[i].childList[j].menuId) {
+                            console.log('找到对应的:' + menuId);
+                            //找到子菜单以后:更改父菜单的开闭状态和选中状态,以及子菜单的选中状态
+                            $scope.menuList[i].state = 'open';
+                            $scope.menuList[i].selected = 1;                    //0代表不选中,1代表选中
+                            //子菜单更改为选中状态
+                            $scope.menuList[i].childList[j].selected = 1;
+                            break;
                         }
                     }
                 }
-
             }
 
-
+            /**
+             * 清除菜单的选中状态
+             */
+            var clearSelectedStatus = function () {
+                for (var i = 0; i < $scope.menuList.length; i++) {
+                    $scope.menuList[i].selected = 0;
+                    for (var j = 0; j < $scope.menuList[i].childList.length; j++) {
+                        $scope.menuList[i].childList[j].selected = 0;
+                    }
+                }
+            }
 
 
             //切换列表状态
@@ -160,7 +197,7 @@
              */
             $scope.$on("$locationChangeSuccess", function () {
                 //监听url变化，在变化后做想要的处理
-                path = $location.path();
+                var path = $location.path();
                 //获取到路由地址,即#号后面的那一部分去掉"/"
                 path = path.substring(path.indexOf("/") + 1);
                 operateMenuByPath(path);

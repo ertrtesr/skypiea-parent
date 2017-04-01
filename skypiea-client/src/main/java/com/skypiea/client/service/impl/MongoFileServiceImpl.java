@@ -4,11 +4,10 @@ import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
 import com.skypiea.client.pojo.GridFSFileInfo;
 import com.skypiea.client.service.MongoFileService;
-import com.skypiea.common.http.HttpStatus;
 import com.skypiea.common.result.SPResult;
 import com.skypiea.common.utils.ExceptionUtils;
+import com.skypiea.common.utils.IOUtils;
 import com.skypiea.common.utils.TimeUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -16,8 +15,10 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class MongoFileServiceImpl implements MongoFileService {
             return SPResult.ok(fileInfo);
         } catch (IOException e) {
             ExceptionUtils.getStackTrace(e);
-            return SPResult.build(HttpStatus.OK, "文件上传失败");
+            return SPResult.error("文件上传失败");
         }
     }
 
@@ -62,26 +63,58 @@ public class MongoFileServiceImpl implements MongoFileService {
             return SPResult.ok(fileList);
         } catch (IOException e) {
             ExceptionUtils.getStackTrace(e);
-            return SPResult.build(HttpStatus.OK, "部分文件上传失败", fileList);
+            return SPResult.error("文件上传失败");
         }
     }
 
     @Override
-    public SPResult findFileById(String _id) {
+    public SPResult getFileInfoById(String _id) {
         GridFSDBFile file = gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(_id)));
         GridFSFileInfo fileInfo = setFileInfo(file);
         return SPResult.ok(fileInfo);
     }
 
     @Override
-    public SPResult findFileByName(String fileName) {
+    public SPResult getFileInfoByName(String filename) {
         ArrayList<GridFSFileInfo> fileList = new ArrayList<>();
-        List<GridFSDBFile> files = gridFsTemplate.find(Query.query(Criteria.where("fileName").is(fileName)));
+        List<GridFSDBFile> files = gridFsTemplate.find(Query.query(Criteria.where("filename").is(filename)));
         for (GridFSDBFile file : files) {
             GridFSFileInfo fileInfo = setFileInfo(file);
             fileList.add(fileInfo);
         }
         return SPResult.ok(fileList);
+    }
+
+    @Override
+    public void getFileById(String _id, HttpServletResponse response) {
+        GridFSDBFile file = gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(_id)));
+        response.setContentType(file.getContentType());
+        OutputStream os = null;
+        try {
+            os = response.getOutputStream();
+            file.writeTo(os);
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeIO(os);
+        }
+    }
+
+    @Override
+    public void getFileByName(String filename, HttpServletResponse response) {
+        GridFSDBFile file = gridFsTemplate.findOne(Query.query(Criteria.where("filename").is(filename)));
+        response.setContentType(file.getContentType());
+        OutputStream os = null;
+        try {
+            os = response.getOutputStream();
+            file.writeTo(os);
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeIO(os);
+        }
     }
 
     @Override
@@ -115,10 +148,8 @@ public class MongoFileServiceImpl implements MongoFileService {
      */
     private GridFSFile storeFile(MultipartFile file) throws IOException {
         InputStream content = file.getInputStream();
-        String fileName = file.getOriginalFilename();       //获取原始文件名
-        int startPos = StringUtils.indexOf(fileName, ".");
-        String contentType = StringUtils.substring(fileName, startPos + 1);
-        return gridFsTemplate.store(content, fileName, contentType);
+        String filename = file.getOriginalFilename();       //获取原始文件名
+        return gridFsTemplate.store(content, filename, file.getContentType());
     }
 
     /**
@@ -131,7 +162,7 @@ public class MongoFileServiceImpl implements MongoFileService {
         GridFSFileInfo fileInfo = new GridFSFileInfo();
         fileInfo.set_id(gridFSFile.getId().toString());
         fileInfo.setContentType(gridFSFile.getContentType());
-        fileInfo.setFileName(gridFSFile.getFilename());
+        fileInfo.setFilename(gridFSFile.getFilename());
         fileInfo.setLength(gridFSFile.getLength());
         fileInfo.setMd5(gridFSFile.getMD5());
         fileInfo.setMetaData(gridFSFile.getMetaData());
