@@ -16,6 +16,7 @@
                             ctrl.$setViewValue(html);
                         });
                     };
+                    editor.config.uploadImgUrl='/sys/upload';
                     editor.create();
                 }
             };

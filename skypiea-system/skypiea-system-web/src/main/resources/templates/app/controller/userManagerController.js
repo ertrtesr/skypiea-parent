@@ -31,6 +31,15 @@
             }
         };
 
+        $scope.totalItems;          //所有查询出的总条目数
+        $scope.currentPage = 1;     //当前页,跟ng-model绑定
+        $scope.maxSize = 9;             //底部分页指示框的最大数量
+        $scope.numPages = 20;
+
+        $scope.showCurrentPage = function (currentPage) {
+            alert(currentPage);
+        }
+
         //定义获取用户列表的方法
         var getUserList = function () {
             userManagerService.getUserList(function (resp) {
