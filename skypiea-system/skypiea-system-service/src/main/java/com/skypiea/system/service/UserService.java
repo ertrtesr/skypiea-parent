@@ -10,11 +10,15 @@ import com.skypiea.system.model.UserInfo;
  */
 public interface UserService {
 
-    SPResult findUserById(int id);
+    SPResult getUserById(int id);
 
-    SPResult findUserByName(String username);
+    SPResult getUserByName(String username);
 
-    SPResult findAllUsers();
+    SPResult getAllUsers();
+
+    SPResult getUsers(int pageNum, int pageSize);
+
+    int getUserCount();
 
     SPResult checkPasswordByUsername(String username, String password);
 

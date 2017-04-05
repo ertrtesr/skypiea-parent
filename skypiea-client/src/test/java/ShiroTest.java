@@ -60,7 +60,7 @@ public class ShiroTest {
         boolean role2 = subject.hasRole("role2");
         System.out.println("role2:" + role2);
 
-        List<RoleInfo> roles = userMapper.findRolesByUsername("zhangsan3");
+        List<RoleInfo> roles = userMapper.getRolesByUsername("zhangsan3");
         System.out.println(roles.get(0).getName());
     }
 }

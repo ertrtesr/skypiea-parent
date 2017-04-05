@@ -1,5 +1,6 @@
 package com.skypiea.system.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.skypiea.common.cons.UserConstants;
 import com.skypiea.common.http.HttpStatus;
 import com.skypiea.common.result.SPResult;
@@ -24,8 +25,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public SPResult findUserById(int id) {
-        UserInfo user = userMapper.findUserById(id);
+    public SPResult getUserById(int id) {
+        UserInfo user = userMapper.getUserById(id);
         if (user != null) {
             return SPResult.ok(user);
         } else {
@@ -34,20 +35,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public SPResult findUserByName(String username) {
-        UserInfo user = userMapper.findUserByName(username);
+    public SPResult getUserByName(String username) {
+        UserInfo user = userMapper.getUserByName(username);
         return SPResult.ok(user);
     }
 
     @Override
-    public SPResult findAllUsers() {
-        List<UserInfo> users = userMapper.findAllUsers();
+    public SPResult getAllUsers() {
+        List<UserInfo> users = userMapper.getAllUsers();
         return SPResult.ok(users);
     }
 
     @Override
+    public SPResult getUsers(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<UserInfo> users = userMapper.getAllUsers();
+        return SPResult.ok(users);
+    }
+
+    @Override
+    public int getUserCount() {
+        int count = userMapper.getUserCount();
+        return count;
+    }
+
+    @Override
     public SPResult checkPasswordByUsername(String username, String password) {
-        String rightPwd = userMapper.findPasswordByUsername(username);       //正确的密码
+        String rightPwd = userMapper.getPasswordByUsername(username);       //正确的密码
         if (!rightPwd.equals(password)) {
             return SPResult.build(HttpStatus.OK, UserConstants.PASSWORD_ERROR);
         } else {
@@ -65,7 +79,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public SPResult addUser(UserInfo user) {
         String username = user.getUsername();
-        UserInfo dbUser = userMapper.findUserByName(username);
+        UserInfo dbUser = userMapper.getUserByName(username);
         if (dbUser != null) {       //如果用户已存在,则返回已存在的json
             return SPResult.fail(UserConstants.USER_ALREADY_EXIST);
         } else {
@@ -89,11 +103,16 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Transactional
     public SPResult updateUser(UserInfo newUser) {
         String username = newUser.getUsername();
-        UserInfo user = userMapper.findUserByName(username);
-        if (user != null) {  //如果用户名存在,则更新
+        UserInfo user = userMapper.getUserByName(username);
+        if (user != null) {
+            //如果用户名存在,则更新
+            //1.更新用户表
             userMapper.updateUser(newUser);
+            //2.更新用户-角色关系表
+            userMapper.updateUserRole(newUser);
             return SPResult.ok(newUser);
         } else {
             //如果用户不存在,则返回不存在

@@ -25,7 +25,7 @@ public class MapperTest {
 
     @Test
     public void userAndRoleMapperTest() {
-        List<UserInfo> list = userMapper.findAllUsers();
+        List<UserInfo> list = userMapper.getAllUsers();
         for (UserInfo user : list) {
             RoleInfo role = user.getRole();
             System.out.println(user.getUsername() + "==>" + role.getId() + ":" + role.getName());

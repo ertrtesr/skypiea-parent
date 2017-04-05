@@ -51,31 +51,26 @@
 
 
                 <!--items-per-page $ C  (Default: 10) - 每页最大显示条数的数量。值小于1表明所有项目在一个页上。
-
                     last-text C (Default: Last) - 最后一个按钮的文本。
-
                     max-size $  (Default: null) - 限制分页按钮显示的数量大小。
-
                     next-text C (Default: Next) - 下一个按钮的文本
-
                     ng-change $ - 点击分页按钮触发的方法，可用于更改不同页面数据,用ng-click也可以有一样的效果
-
                     ng-disabled $  (Default: false) - 用于禁用分页组件。
-
                     ng-model $  -  当前页数. 第一页为1（即从1开始计算而不是0）.
-
-                    num-pages $ readonly (Default: angular.noop) -  一个可选的配置，显示页面总数(这是个只读项，并不是可以通过设置页面数和当前页配置分页).
-
+                    num-pages $ readonly (Default: angular.noop) ==>  一个可选的配置，显示页面总数(这是个只读项，并不是可以通过设置页面数和当前页配置分页).
                     page-label (Default: angular.identity) - 可选的表达式，以覆盖基于传递当前页面索引的页标签。-->
 
                 <div class="pull-right">
-                    <ul uib-pagination total-items="88" ng-model="currentPage" max-size="maxSize"
+                    <ul uib-pagination total-items="totalItems"
+                        items-per-page="itemsPerPage"
+                        ng-model="currentPage"
+                        max-size="maxSize"
                         boundary-links="true"
                         previous-text="上一页"
                         next-text="下一页"
                         first-text="首页"
                         last-text="尾页"
-                        ng-change="showCurrentPage(currentPage)">
+                        ng-change="getUserListByPage(currentPage,10)">
                     </ul>
                 </div>
             </div>

@@ -24,13 +24,13 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public SPResult queryRoles(String username) {
-        List<RoleInfo> roles = userMapper.findRolesByUsername(username);
+        List<RoleInfo> roles = userMapper.getRolesByUsername(username);
         return SPResult.ok(roles);
     }
 
     @Override
     public SPResult queryPermissions(String username) {
-        List<PermissionInfo> permissions = userMapper.findPermissionsByUsername(username);
+        List<PermissionInfo> permissions = userMapper.getPermissionsByUsername(username);
         return SPResult.ok(permissions);
     }
 }

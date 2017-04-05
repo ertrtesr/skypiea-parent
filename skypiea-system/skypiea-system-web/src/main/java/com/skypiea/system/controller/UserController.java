@@ -20,8 +20,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    private SPResult findUserById(@PathVariable int id) {
-        SPResult result = userService.findUserById(id);
+    private SPResult getUserById(@PathVariable int id) {
+        SPResult result = userService.getUserById(id);
         return result;
     }
 
@@ -32,25 +32,42 @@ public class UserController {
      * @return
      */
     @GetMapping
-    private SPResult findUserByName(@RequestParam("username") String username) {
-        SPResult result = userService.findUserByName(username);
+    private SPResult getUserByName(@RequestParam("username") String username) {
+        SPResult result = userService.getUserByName(username);
         return result;
     }
 
     @GetMapping("/all")
-    private SPResult findAllUsers() {
-        SPResult result = userService.findAllUsers();
+    private SPResult getAllUsers() {
+        SPResult result = userService.getAllUsers();
         return result;
     }
 
+    @GetMapping("/all/{pageNum}")
+    private SPResult getUsers(@PathVariable int pageNum, int pageSize) {
+        SPResult result = userService.getUsers(pageNum, pageSize);
+        return result;
+    }
+
+    /**
+     * 获取用户数量
+     *
+     * @return
+     */
+    @GetMapping("/count")
+    private int getUserCount() {
+        int count = userService.getUserCount();
+        return count;
+    }
+
     @PostMapping("/addUser")
-    private SPResult addUser(String username, String password, String roleName) {
+    private SPResult addUser(String username, String password, String rolename) {
         UserInfo user = new UserInfo();
         user.setUsername(username);
         user.setPassword(password);
         RoleInfo role = new RoleInfo();
         int roleId = 1;
-        switch (roleName) {
+        switch (rolename) {
             case "普通用户":
                 roleId = 1;
                 break;
@@ -64,7 +81,7 @@ public class UserController {
                 break;
         }
         role.setId(roleId);
-        role.setName(roleName);
+        role.setName(rolename);
         user.setRole(role);
         SPResult result = userService.addUser(user);
         return result;
@@ -77,8 +94,8 @@ public class UserController {
     }
 
     @PostMapping("/updateUser")
-    private SPResult updateUser(UserInfo newUser) {
-        SPResult result = userService.updateUser(newUser);
+    private SPResult updateUser(UserInfo user) {
+        SPResult result = userService.updateUser(user);
         return result;
     }
 

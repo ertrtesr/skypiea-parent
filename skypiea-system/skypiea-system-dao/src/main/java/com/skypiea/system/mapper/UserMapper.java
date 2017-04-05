@@ -16,27 +16,30 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    UserInfo findUserById(int id);
+    UserInfo getUserById(int id);
 
-    UserInfo findUserByName(String username);
+    UserInfo getUserByName(String username);
 
-    UserInfo findUserByPhone(String phone);
+    UserInfo getUserByPhone(String phone);
 
-    UserInfo findUserByEmail(String email);
+    UserInfo getUserByEmail(String email);
 
     //通过用户id查询用户角色
-    List<RoleInfo> findRolesByUserId(int id);
+    List<RoleInfo> getRolesByUserId(int id);
 
     //通过用户名查询用户角色
-    List<RoleInfo> findRolesByUsername(String username);
+    List<RoleInfo> getRolesByUsername(String username);
 
     //通过用户id查询用户权限
-    List<PermissionInfo> findPermissionsByUserId(int id);
+    List<PermissionInfo> getPermissionsByUserId(int id);
 
     //通过用户名查询用户权限
-    List<PermissionInfo> findPermissionsByUsername(String username);
+    List<PermissionInfo> getPermissionsByUsername(String username);
 
-    List<UserInfo> findAllUsers();
+    List<UserInfo> getAllUsers();
+
+    //获取用户数量
+    int getUserCount();
 
     /**
      * 根据用户名查找密码
@@ -44,7 +47,7 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    String findPasswordByUsername(String username);
+    String getPasswordByUsername(String username);
 
     /**
      * 往t_user表中添加用户,返回自增长ID
@@ -63,16 +66,16 @@ public interface UserMapper {
     /**
      * 更新用户
      *
-     * @param newUser
+     * @param user
      */
-    void updateUser(UserInfo newUser);
+    void updateUser(UserInfo user);
 
     /**
      * 根据用户名更新t_user_role关系表中的角色id
      *
-     * @param username
+     * @param user
      */
-    void updateUserRole(String username);
+    void updateUserRole(UserInfo user);
 
     /**
      * 根据用户名删除用户

@@ -5,12 +5,12 @@
 <mapper namespace="com.skypiea.system.mapper.UserMapper">
 
     <!--通过ID查找用户-->
-    <select id="findUserById" parameterType="int" resultType="UserInfo">
+    <select id="getUserById" parameterType="int" resultType="UserInfo">
         SELECT * FROM t_user WHERE id=#{id};
     </select>
 
     <!--通过用户名查找用户-->
-    <select id="findUserByName" parameterType="String" resultType="UserInfo">
+    <select id="getUserByName" parameterType="String" resultType="UserInfo">
         SELECT * FROM t_user WHERE  username=#{username};
     </select>
 
@@ -25,7 +25,7 @@
     </resultMap>
 
     <!--查找所有用户(包括用户对应的角色,后续还可以扩展)-->
-    <select id="findAllUsers" resultMap="UsersAndRolesRstMap">
+    <select id="getAllUsers" resultMap="UsersAndRolesRstMap">
         SELECT
             t_user.id,
             t_user.username,
@@ -42,13 +42,18 @@
         ORDER BY t_user.id
     </select>
 
+    <!--查询用户数量-->
+    <select id="getUserCount" resultType="int">
+        SELECT count(*) FROM t_user;
+    </select>
+
     <!--通过用户名查找密码-->
-    <select id="findPasswordByUsername" parameterType="String" resultType="String">
+    <select id="getPasswordByUsername" parameterType="String" resultType="String">
         SELECT password FROM t_user WHERE username=#{username};
     </select>
 
     <!--通过用户id查询用户角色-->
-    <select id="findRolesByUserId" parameterType="int" resultType="RoleInfo">
+    <select id="getRolesByUserId" parameterType="int" resultType="RoleInfo">
         SELECT
 	        t_role.id, t_role.name
         FROM
@@ -66,7 +71,7 @@
     </select>
 
     <!--通过用户名查询用户角色-->
-    <select id="findRolesByUsername" parameterType="String" resultType="RoleInfo">
+    <select id="getRolesByUsername" parameterType="String" resultType="RoleInfo">
         SELECT
 	        t_role.id, t_role.name
         FROM
@@ -91,7 +96,6 @@
         INSERT INTO t_user(username,password) VALUES(#{username},#{password});
     </insert>
 
-
     <!--往t_user_role中添加用户对应的角色-->
     <insert id="addUserRole" parameterType="UserInfo">
         INSERT INTO t_user_role(user_id,role_id,username) VALUES(#{id},#{role.id},#{username});
@@ -103,8 +107,8 @@
     </update>
 
     <!--更新用户关系表-->
-    <update id="updateUserRole" parameterType="String">
-        UPDATE t_user_role SET role_id=#{roleId} WHERE username=#{username};
+    <update id="updateUserRole" parameterType="UserInfo">
+        UPDATE t_user_role SET role_id=#{role.id} WHERE username=#{username};
     </update>
 
     <!--删除用户-->

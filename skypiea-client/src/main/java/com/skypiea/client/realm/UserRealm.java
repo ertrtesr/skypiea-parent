@@ -45,7 +45,7 @@ public class UserRealm extends AuthorizingRealm {
 
         //通过username去数据库查询用户角色和角色所对应的权限
         HashSet<String> roleSet = new HashSet<>();
-        List<RoleInfo> roles = userMapper.findRolesByUsername(username);
+        List<RoleInfo> roles = userMapper.getRolesByUsername(username);
         for (RoleInfo role : roles) {
             roleSet.add(role.getName());
         }
@@ -70,7 +70,7 @@ public class UserRealm extends AuthorizingRealm {
         //定义变量,表示从数据库查到的正确的username和password
         String dbUsername;
         String dbPassword;
-        UserInfo user = userMapper.findUserByName(inputUsername);
+        UserInfo user = userMapper.getUserByName(inputUsername);
         if (user == null) {
             //如果用户没有找到,返回null
             return null;
@@ -82,7 +82,7 @@ public class UserRealm extends AuthorizingRealm {
             dbUsername = user.getUsername();
         }
         //如果找到了该用户,则通过用户名去数据库查询对应的密码
-        dbPassword = userMapper.findPasswordByUsername(dbUsername);
+        dbPassword = userMapper.getPasswordByUsername(dbUsername);
         //构造正确的认证信息
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(dbUsername, dbPassword, getName());
         return info;
