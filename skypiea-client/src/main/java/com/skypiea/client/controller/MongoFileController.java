@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -22,13 +21,13 @@ public class MongoFileController {
     private MongoFileService fileService;
 
     @PostMapping("/upload/single")
-    public SPResult uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+    public SPResult uploadFile(@RequestParam("file") MultipartFile file) {
         SPResult result = fileService.uploadFile(file);
         return result;
     }
 
     @PostMapping("/upload/multi")
-    public SPResult uploadFiles(@RequestParam("file") MultipartFile[] files, HttpServletRequest request, HttpServletResponse response) {
+    public SPResult uploadFiles(@RequestParam("file") MultipartFile[] files) {
         SPResult result = fileService.uploadFiles(files);
         return result;
     }

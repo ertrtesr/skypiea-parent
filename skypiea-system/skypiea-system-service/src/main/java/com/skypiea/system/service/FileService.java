@@ -34,9 +34,9 @@ public interface FileService {
 
     void getFileById(String _id, HttpServletResponse response);
 
-    void getFileByName(String filename, HttpServletResponse response);
-
     SPResult deleteFileById(String _id);
 
     SPResult deleteFileByName(String fileName);
+
+    void showFileByName(String filename, HttpServletResponse response);
 }

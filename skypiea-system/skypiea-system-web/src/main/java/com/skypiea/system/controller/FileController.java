@@ -56,9 +56,15 @@ public class FileController {
         fileService.getFileById(_id, response);
     }
 
+    /**
+     * 展示文件
+     *
+     * @param filename
+     * @param response
+     */
     @GetMapping("/name/{filename:.+}")
-    public void getFileByName(@PathVariable("filename") String filename, HttpServletResponse response) {
-        fileService.getFileByName(filename, response);
+    public void showFileByName(@PathVariable("filename") String filename, HttpServletResponse response) {
+        fileService.showFileByName(filename, response);
     }
 
     @GetMapping("/delete/id")

@@ -1,7 +1,6 @@
 package com.skypiea.system.controller;
 
 import com.skypiea.common.result.SPResult;
-import com.skypiea.system.model.RoleInfo;
 import com.skypiea.system.model.UserInfo;
 import com.skypiea.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,28 +60,7 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    private SPResult addUser(String username, String password, String rolename) {
-        UserInfo user = new UserInfo();
-        user.setUsername(username);
-        user.setPassword(password);
-        RoleInfo role = new RoleInfo();
-        int roleId = 1;
-        switch (rolename) {
-            case "普通用户":
-                roleId = 1;
-                break;
-            case "注册会员":
-                roleId = 2;
-                break;
-            case "管理员":
-                roleId = 3;
-                break;
-            default:
-                break;
-        }
-        role.setId(roleId);
-        role.setName(rolename);
-        user.setRole(role);
+    private SPResult addUser(UserInfo user) {
         SPResult result = userService.addUser(user);
         return result;
     }

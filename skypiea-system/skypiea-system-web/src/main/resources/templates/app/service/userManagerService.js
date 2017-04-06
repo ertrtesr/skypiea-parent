@@ -45,7 +45,13 @@
             $http({
                 url: '/sys/user/addUser',
                 method: 'POST',
-                params: userData
+                params: {
+                    'id': userData.id,
+                    'username': userData.username,
+                    'password': userData.password,
+                    'role.id': userData.role.id,
+                    'role.name': userData.role.name
+                }
             }).then(function (response) {
                 fn(response);
             });

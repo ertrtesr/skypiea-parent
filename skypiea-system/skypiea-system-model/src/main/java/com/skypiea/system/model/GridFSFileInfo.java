@@ -36,7 +36,7 @@ public class GridFSFileInfo {
         this.contentType = contentType;
     }
 
-    public String getFileName() {
+    public String getFilename() {
         return filename;
     }
 

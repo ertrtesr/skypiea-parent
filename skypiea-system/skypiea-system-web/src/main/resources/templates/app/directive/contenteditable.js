@@ -4,9 +4,9 @@
     angular.module('app')
         .directive('contentEditable', function () {
             return {
-                restrict: 'A' ,
+                restrict: 'A',
                 require: 'ngModel',
-                link: function(scope, element, attrs, ctrl) {
+                link: function (scope, element, attrs, ctrl) {
                     // 创建编辑器
                     var editor = new wangEditor('editor-trigger');
                     editor.onchange = function () {
@@ -16,7 +16,15 @@
                             ctrl.$setViewValue(html);
                         });
                     };
-                    editor.config.uploadImgUrl='/sys/upload';
+                    editor.config.uploadImgUrl = '/sys/mail/uploadImage';
+                    editor.config.uploadImgFileName = 'image';
+                    // editor.config.uploadParams = {
+                    //     name: 'image'
+                    // }
+                    // // 设置 headers（举例）
+                    // editor.config.uploadHeaders = {
+                    //     'Content-Type': 'multipart/form-data'
+                    // }
                     editor.create();
                 }
             };

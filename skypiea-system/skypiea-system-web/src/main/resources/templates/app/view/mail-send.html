@@ -15,7 +15,7 @@
         <div class="form-group">
             <label class="control-label">收件人:</label>
             <div>
-                <input type="text" class="form-control" ng-model="mail.subject">
+                <input type="text" class="form-control" ng-model="mail.to">
             </div>
         </div>
         <div class="form-group">
@@ -27,17 +27,17 @@
         <div class="form-group">
             <label class="control-label">邮件正文:</label>
             <div>
-                <div id="editor-trigger" ng-model="editorContent" content-editable="true" style="height: 300px;"></div>
+                <div id="editor-trigger" ng-model="mail.content" content-editable="true" style="height: 300px;"></div>
             </div>
         </div>
         <div class="form-group">
             <div>
-                <button class="btn btn-info w-xs">发送</button>
+                <button class="btn btn-info w-xs" ng-click="sendMail(mail)">发送</button>
             </div>
         </div>
     </form>
 
     <hr>
     <p><b>以下是编辑器的内容：</b></p>
-    <p ng-bind="editorContent"></p>
+    <p ng-bind="mail.content"></p>
 </div>

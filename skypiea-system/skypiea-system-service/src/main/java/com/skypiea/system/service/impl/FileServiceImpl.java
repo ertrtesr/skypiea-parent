@@ -102,22 +102,6 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void getFileByName(String filename, HttpServletResponse response) {
-        GridFSDBFile file = gridFsTemplate.findOne(Query.query(Criteria.where("filename").is(filename)));
-        response.setContentType(file.getContentType());
-        OutputStream os = null;
-        try {
-            os = response.getOutputStream();
-            file.writeTo(os);
-            os.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            IOUtils.closeIO(os);
-        }
-    }
-
-    @Override
     public SPResult deleteFileById(String _id) {
         try {
             gridFsTemplate.delete(Query.query(Criteria.where("_id").is(_id)));
@@ -139,6 +123,22 @@ public class FileServiceImpl implements FileService {
         return SPResult.ok("删除成功");
     }
 
+    @Override
+    public void showFileByName(String filename, HttpServletResponse response) {
+        GridFSDBFile file = gridFsTemplate.findOne(Query.query(Criteria.where("filename").is(filename)));
+        response.setContentType(file.getContentType());
+        OutputStream os = null;
+        try {
+            os = response.getOutputStream();
+            file.writeTo(os);
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeIO(os);
+        }
+    }
+
     /**
      * 存储文件
      *
@@ -148,6 +148,8 @@ public class FileServiceImpl implements FileService {
      */
     private GridFSFile storeFile(MultipartFile file) throws IOException {
         InputStream content = file.getInputStream();
+        String name = file.getName();
+        System.out.println(name);
         String filename = file.getOriginalFilename();       //获取原始文件名
         return gridFsTemplate.store(content, filename, file.getContentType());
     }

@@ -1,5 +1,8 @@
 package com.skypiea.system.service;
 
+import com.skypiea.common.result.SPResult;
+import com.skypiea.system.model.MailInfo;
+
 /**
  * 作者: huangwenjian
  * 描述:
@@ -7,5 +10,9 @@ package com.skypiea.system.service;
  */
 public interface MailService {
 
-    void sendMail();
+    SPResult sendSimpleMail(MailInfo mailInfo);
+
+    SPResult sendHtmlMail(MailInfo mailInfo);
+
+    SPResult sendAttachmentMail(MailInfo mailInfo, String filePath);
 }
