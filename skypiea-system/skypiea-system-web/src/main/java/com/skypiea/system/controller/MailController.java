@@ -37,10 +37,17 @@ public class MailController {
     public String uploadFile(@RequestParam("image") MultipartFile image, HttpServletResponse response) {
         SPResult result = fileService.uploadFile(image);
         GridFSFileInfo info = (GridFSFileInfo) result.getData();
-        String name = info.getFilename();
-        String imgUrl = "http://localhost:8080/sys/mail/img/" + name;
-
+        String imgUrl = "http://localhost:8080/sys/mail/image/" + info.getFilename();
         return imgUrl;
+
+//        SPResult result = fileService.uploadFiles(images);
+//        List<GridFSFileInfo> imageList = (List<GridFSFileInfo>) result.getData();
+//        String[] imgUrls = new String[imageList.size()];
+//        for (int i = 0; i < imageList.size(); i++) {
+//            String imgUrl = "http://localhost:8080/sys/mail/image/" + imageList.get(i).getFilename();
+//            imgUrls[i] = imgUrl;
+//        }
+//        return imgUrls;
     }
 
 //    @PostMapping("/show/img")
@@ -64,8 +71,14 @@ public class MailController {
 //        }
 //    }
 
-    @GetMapping("/img/{imagename:.+}")
-    public void showImage(@PathVariable String imagename, HttpServletResponse response) {
-        fileService.showFileByName(imagename, response);
+    /**
+     * 展示图片
+     *
+     * @param imageName
+     * @param response
+     */
+    @GetMapping("/image/{imageName:.+}")
+    public void showImage(@PathVariable String imageName, HttpServletResponse response) {
+        fileService.showFileByName(imageName, response);
     }
 }

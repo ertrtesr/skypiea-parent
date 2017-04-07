@@ -5,9 +5,11 @@ import com.mongodb.gridfs.GridFSFile;
 import com.skypiea.common.result.SPResult;
 import com.skypiea.common.utils.ExceptionUtils;
 import com.skypiea.common.utils.IOUtils;
+import com.skypiea.common.utils.MD5Utils;
 import com.skypiea.common.utils.TimeUtils;
 import com.skypiea.system.model.GridFSFileInfo;
 import com.skypiea.system.service.FileService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -21,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 作者: huangwenjian
@@ -151,6 +154,14 @@ public class FileServiceImpl implements FileService {
         String name = file.getName();
         System.out.println(name);
         String filename = file.getOriginalFilename();       //获取原始文件名
+        //获取文件名后缀
+        int start = filename.lastIndexOf(".");
+        String suffix = StringUtils.substring(filename, start);
+        //获取文件名前缀(.前面的部分)
+        String prefix = StringUtils.substring(filename, 0, start);
+        //对原始文件名进行处理,保证mongodb中的文件名不重复
+        filename = MD5Utils.MD5Encode(UUID.randomUUID().toString() + System.currentTimeMillis() + prefix) + suffix;
+        System.out.println(filename);
         return gridFsTemplate.store(content, filename, file.getContentType());
     }
 

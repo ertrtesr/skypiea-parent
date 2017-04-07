@@ -6,7 +6,6 @@ package com.skypiea.system.model;
  * 创建时间: 2017-04-06 14:04
  */
 public class MailInfo {
-
     private String to;
     private String subject;
     private String content;
