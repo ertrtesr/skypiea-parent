@@ -53,7 +53,7 @@ public class FileController {
 
     @GetMapping("/id/{_id}")
     public void getFileById(@PathVariable String _id, HttpServletResponse response) {
-        fileService.getFileById(_id, response);
+        fileService.showFileById(_id, response);
     }
 
     /**

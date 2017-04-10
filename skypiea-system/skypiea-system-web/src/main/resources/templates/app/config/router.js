@@ -4,7 +4,8 @@
 angular.module('app').config([
     '$stateProvider',
     '$urlRouterProvider',
-    '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    '$locationProvider',
+    function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $urlRouterProvider.when("", "/user-manager");
         //用/mail/{fold}去匹配
         $urlRouterProvider.when('/mail', '/mail/{fold}');
@@ -45,7 +46,7 @@ angular.module('app').config([
             })
             .state('home.photo-upload', {
                 url: '/photo-upload',
-                templateUrl: 'app/view/photo-upload.html'
+                templateUrl: 'app/view/photo-upload.html',
             })
             .state('home.photo-beautify', {
                 url: '/photo-beautify',
@@ -71,6 +72,14 @@ angular.module('app').config([
             .state('home.mail.list', {
                 url: '/{fold}',
                 templateUrl: 'app/view/mail-list.html'
+            })
+            .state('home.table-create', {
+                url: '/table-create',
+                templateUrl: 'app/view/table-create.html'
+            })
+            .state('home.table-parse', {
+                url: '/table-parse',
+                templateUrl: 'app/view/table-parse.html'
             });
         $urlRouterProvider.otherwise('/user-manager');
         $locationProvider.hashPrefix('');

@@ -32,11 +32,11 @@ public interface FileService {
 
     SPResult getFileInfoByName(String fileName);
 
-    void getFileById(String _id, HttpServletResponse response);
-
     SPResult deleteFileById(String _id);
 
     SPResult deleteFileByName(String fileName);
+
+    void showFileById(String _id, HttpServletResponse response);
 
     void showFileByName(String filename, HttpServletResponse response);
 }

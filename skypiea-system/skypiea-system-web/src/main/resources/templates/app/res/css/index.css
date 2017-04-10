@@ -56,8 +56,6 @@ body {
     margin-left: -21px;
 }
 
-
-
 /*菜单一级标题样式*/
 .menu-title {
     margin-left: 20px;
@@ -81,6 +79,10 @@ body {
 
 .icon-primary-music {
     color: #19a9d5;
+}
+
+.icon-primary-table {
+    color: #23ad44;
 }
 
 .icon-primary-mail {

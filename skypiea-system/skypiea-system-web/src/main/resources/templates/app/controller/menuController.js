@@ -15,7 +15,9 @@
                 PHOTO_BEAUTIFY: 32,
                 MUSIC_UPLOAD: 41,
                 MUSIC_PLAY: 42,
-                MAIL: 5
+                MAIL: 5,
+                TABLE_CREATE: 61,
+                TABLE_PARSE: 62
             }
 
 
@@ -61,7 +63,12 @@
                     menuId = 42;
                 } else if (path.startsWith('mail')) {
                     menuId = 5;
+                } else if (path.startsWith('table-create')) {
+                    menuId = 61;
+                } else if (path.startsWith('table-parse')) {
+                    menuId = 62;
                 }
+
 
                 // //此处只能用for循环,因为需要获得父子菜单的索引
                 // for (var i = 0; i < $scope.menuList.length; i++) {
@@ -184,6 +191,12 @@
                         break;
                     case constants.MAIL:
                         $state.go('home.mail');
+                        break;
+                    case constants.TABLE_CREATE:
+                        $state.go('home.table-create');
+                        break;
+                    case constants.TABLE_PARSE:
+                        $state.go('home.table-parse');
                         break;
                     default:
                         break;
