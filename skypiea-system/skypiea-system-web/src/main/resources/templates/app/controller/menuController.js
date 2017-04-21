@@ -51,6 +51,8 @@
                     menuId = 12;
                 } else if (path.startsWith('family-manager')) {
                     menuId = 21;
+                } else if (path.startsWith('family-detail')) {
+                    menuId = 21;
                 } else if (path.startsWith('family-upload')) {
                     menuId = 22;
                 } else if (path.startsWith('photo-upload')) {

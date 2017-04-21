@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skypiea.system.mapper.FamilyMapper">
+
+    <select id="getAllFamilies" resultType="com.skypiea.system.model.family.FamilyInfo">
+        SELECT * FROM `t_family`;
+    </select>
+
+    <select id="getFamilyById" resultType="com.skypiea.system.model.family.FamilyInfo">
+        SELECT * FROM `t_family` WHERE `id`=#{id};
+    </select>
+
+    <select id="getAllFamilyClassifies" resultType="com.skypiea.system.model.family.FamilyClassifyNameInfo">
+      SELECT * FROM `t_family_classify`;
+    </select>
+
+</mapper>

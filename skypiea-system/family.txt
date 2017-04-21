@@ -1,0 +1,31 @@
+族数据库的创建
+
+族表 t_family:
+    族ID 族名称 上传者 下载次数 上传时间 更新时间
+
+族分类表(大分类) t_family_classify
+族属性表(小分类) t_family_attribute
+
+族-分类 关系表 通过族ID映射
+
+
+
+属性分类:(根据具体情况模拟)
+    1、几何属性(Geometric attribute)
+        长度(length) 宽度(width) 高度(height) 面积(acreage) 体积(volume)
+    2、物理属性(Physical attribute)
+        密度(density) 硬度(hardness) 颜色(color) 材质(material) 构造(structure)
+    3、施工属性(Construction attribute) String:因为要么是框架式要么是单元式,框架式下没有独立属性了
+        类型:框架式or单元式
+    4、计算属性(Calculation attribute)
+        安全系数(safety-coefficient) 摩擦系数(friction-coefficient)
+        风力系数(wind-coefficient) 刚度系数(stiffness coefficient)
+    5、商业属性(Business attribute)
+        住宅用途(residence) 工业用途(industry) 商业用途(business) 综合用途(comprehensive)
+    6、运维属性(Repair attribute)
+        使用年限(service-life) 检修间隔(repair-interval)
+    7、其它属性(Other attribute)
+        生产日期(manufacture-date) 生产厂家(manufacturer)
+
+
+

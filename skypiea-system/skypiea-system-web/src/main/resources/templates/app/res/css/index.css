@@ -4823,6 +4823,11 @@ a.text-#000000:hover {
     margin-bottom: -50px;
 }
 
+.m-clear {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
 .avatar {
     position: relative;
     display: block;

@@ -1,12 +1,12 @@
 (function (angular) {
     'use strict';
 
-    angular.module('app').service('userManagerService', ['$http', function ($http) {
+    angular.module('app').service('userManagerService', ['$http', 'baseUrl', function ($http, baseUrl) {
 
 
         this.getUserCount = function (fn) {
             $http({
-                url: '/sys/user/count',
+                url: baseUrl + '/sys/user/count',
                 method: 'GET'
             }).then(function (resp) {
                 fn(resp);
@@ -15,7 +15,7 @@
 
         this.getUserList = function (successFn) {
             $http({
-                url: '/sys/user/all',
+                url: baseUrl + '/sys/user/all',
                 method: 'GET'
             }).then(function (response) {
                 successFn(response);
@@ -30,7 +30,7 @@
          */
         this.getUserListByPage = function (currentPage, pageSize, fn) {
             $http({
-                url: '/sys/user/all/' + currentPage,
+                url: baseUrl + '/sys/user/all/' + currentPage,
                 method: 'GET',
                 params: {
                     "pageSize": pageSize
@@ -43,7 +43,7 @@
 
         this.addUser = function (userData, fn) {
             $http({
-                url: '/sys/user/addUser',
+                url: baseUrl + '/sys/user/addUser',
                 method: 'POST',
                 params: {
                     'id': userData.id,
@@ -59,7 +59,7 @@
 
         this.updateUser = function (userData, fn) {
             $http({
-                url: '/sys/user/updateUser',
+                url: baseUrl + '/sys/user/updateUser',
                 method: 'POST',
                 params: {
                     'id': userData.id,
@@ -69,13 +69,13 @@
                     'role.name': userData.role.name
                 }
             }).then(function (response) {
-                fn(response)
+                fn(response);
             });
         };
 
         this.deleteUser = function (userData, fn) {
             $http({
-                url: '/sys/user/deleteUser',
+                url: baseUrl + '/sys/user/deleteUser',
                 method: 'GET',
                 params: {
                     username: userData.username
@@ -87,7 +87,7 @@
 
         this.getUserByToken = function (token, fn) {
             $http({
-                url: 'sys/token/' + token,
+                url: baseUrl + '/sys/token/' + token,
                 method: 'GET',
             }).then(function successCallback(response) {
                 fn(response);

@@ -10,6 +10,7 @@
     <groupId>com.skypiea</groupId>
     <artifactId>skypiea-system-web</artifactId>
     <name>skypiea-system-web</name>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>

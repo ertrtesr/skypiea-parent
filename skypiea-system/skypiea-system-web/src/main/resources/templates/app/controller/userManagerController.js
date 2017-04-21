@@ -113,8 +113,7 @@
                 //如果点击的模态框的提交按钮为"添加"
                 if ($scope.btnText == constants.ADD) {
                     userManagerService.addUser(userData, function (resp) {
-                        var msg = resp.data.msg;
-                        if (msg == constants.USER_ALREADY_EXIST) {        //用户已存在
+                        if (msg ==="ok") {        //用户已存在
                             //用户添加失败
                             swal({
                                 title: '警告',
@@ -138,7 +137,8 @@
                     });
                 } else if ($scope.btnText == constants.EDIT) {  //如果点击的模态框的提交按钮为"修改"
                     userManagerService.updateUser(userData, function (resp) {
-                        if (resp.data != null) {
+                        console.log(resp.data.msg);
+                        if (resp.data.msg === "ok") {
                             swal({
                                 title: '提示',
                                 text: constants.USER_UPDATE_SUCCESS,

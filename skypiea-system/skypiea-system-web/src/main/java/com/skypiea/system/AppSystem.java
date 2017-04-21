@@ -2,6 +2,8 @@ package com.skypiea.system;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 /**
  * 作者: huangwenjian
@@ -10,8 +12,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-public class AppSystem {
-    
+public class AppSystem  extends SpringBootServletInitializer{
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(AppSystem.class);
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(AppSystem.class, args);
     }

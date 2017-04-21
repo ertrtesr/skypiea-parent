@@ -1,9 +1,9 @@
 (function (angular) {
     'use strict';
-    angular.module('app').service('loginService', ['$http', function ($http) {
+    angular.module('app').service('loginService', ['$http', 'baseUrl', function ($http, baseUrl) {
 
         this.checkAdmin = function (username, successFn, errorFn) {
-            $http.get('/sys/checkAdmin?username=' + username).then(function (response) {
+            $http.get(baseUrl + '/sys/checkAdmin?username=' + username).then(function (response) {
                 successFn(response);            //将成功结果回调到loginController中
             }, function (error) {
                 errorFn(error);
@@ -13,7 +13,7 @@
         //检查密码是否正确
         this.checkPassword = function (userData, successFn) {
             $http({
-                url: '/sys/user/checkPwd',
+                url: baseUrl + '/sys/user/checkPwd',
                 method: 'POST',
                 params: {
                     username: userData.username,
@@ -26,7 +26,7 @@
 
         this.login = function (username, password, fn) {
             $http({
-                url: '/sys/login',
+                url: baseUrl + '/sys/login',
                 method: 'POST',
                 params: {
                     username: username,
@@ -39,12 +39,11 @@
 
         this.logout = function (token, fn) {
             $http({
-                url: 'sys/logout/' + token,
+                url: baseUrl + '/sys/logout/' + token,
                 method: 'GET'
             }).then(function (response) {
                 fn(response);
             });
-
         }
     }]);
 

@@ -30,7 +30,12 @@ angular.module('app').config([
             })
             .state('home.family-manager', {
                 url: '/family-manager',
-                templateUrl: 'app/view/family-manager.html'
+                templateUrl: 'app/view/family-manager.html',
+                controller: 'familyController'
+            })
+            .state('home.family-detail', {
+                url: '/family-detail',
+                templateUrl: 'app/view/family-detail.html'
             })
             .state('home.family-upload', {
                 url: '/family-upload',
